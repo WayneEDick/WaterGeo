@@ -1,0 +1,119 @@
+{
+  "cfg": {
+    "meta": {
+      "pipeline": "WaterGeo",
+      "version": "v2.1-rails",
+      "created": "2026-01-02",
+      "notes": [
+        "Born-digital PNG: assume page-aligned (angle 0 or 90).",
+        "Columns are derived; column boundaries (gutters) are detected as geometric obstacles.",
+        "Bad justification handled by persistence + crossings + two-rail test."
+      ]
+    },
+    "inputs": {
+      "png_path": "C:/Users/wayne/OneDrive/Documents/Jupyter/water/Geo/Code/input/input.png",
+      "dpi": 300,
+      "expected_polarity": "auto",
+      "approx_x_height_px": null
+    },
+    "outputs": {
+      "out_dir": "out_geo",
+      "save_debug_images": true,
+      "save_json": true
+    },
+    "params": {
+      "cc": {
+        "connectivity": 8,
+        "min_area_px": 3
+      },
+      "rails": {
+        "eps_frac_min": 0.06,
+        "eps_frac_max": 0.12,
+        "min_support_abs": 10,
+        "min_support_frac": 0.015
+      },
+      "lines": {
+        "h_min_frac": 0.75,
+        "h_max_frac": 1.6,
+        "eps_line_mult": 0.5
+      },
+      "gutters": {
+        "breuel_multiplier": 1.5,
+        "gap_long_percentile": 0.85,
+        "support_ratio_min": 0.35,
+        "cross_rate_max": 0.2,
+        "edge_peak_neighborhood_px": 6,
+        "width_iqr_max_px": 12
+      }
+    },
+    "steps": [
+      {
+        "name": "G0_load_normalize",
+        "fn": "load_normalize",
+        "enabled": true
+      },
+      {
+        "name": "G1_binarize",
+        "fn": "binarize",
+        "enabled": true
+      },
+      {
+        "name": "G2_connected_components",
+        "fn": "connected_components",
+        "enabled": true
+      },
+      {
+        "name": "R0_find_rails_and_lines",
+        "fn": "find_rails_and_lines",
+        "enabled": true
+      },
+      {
+        "name": "R1_find_columns_from_lrails",
+        "fn": "find_columns_from_lrails",
+        "enabled": true
+      },
+      {
+        "name": "R2_assign_lines_to_columns",
+        "fn": "assign_lines_to_columns",
+        "enabled": true
+      },
+      {
+        "name": "G6_glyph_clustering",
+        "fn": "glyph_clustering",
+        "enabled": false
+      },
+      {
+        "name": "G7_gap_tokens_and_islands",
+        "fn": "gap_tokens_and_islands",
+        "enabled": false
+      },
+      {
+        "name": "G8_mer_detection",
+        "fn": "mer_detection",
+        "enabled": false
+      },
+      {
+        "name": "G9_tmi_detection",
+        "fn": "tmi_detection",
+        "enabled": false
+      },
+      {
+        "name": "G10_block_detection",
+        "fn": "block_detection",
+        "enabled": false
+      },
+      {
+        "name": "G11_build_geo_cil",
+        "fn": "build_geo_cil",
+        "enabled": false
+      }
+    ]
+  },
+  "imageGray": "[[255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n ...\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]]",
+  "page": {
+    "H": 115,
+    "W": 284,
+    "dpi": 300,
+    "path": "C:\\Users\\wayne\\OneDrive\\Documents\\Jupyter\\water\\Geo\\Code\\input\\input.png"
+  }
+}

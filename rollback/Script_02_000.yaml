@@ -1,0 +1,65 @@
+# Script_02_001.yaml — Water Geo starter (v2: glyph merge + per-line space inference)
+
+steps:
+  - name: load_image
+    args:
+      path: input/input.png
+    save: 01_gray.png
+
+  - name: binarize_png
+    args:
+      method: otsu
+      invert: false
+      blur_ksize: 0
+    save: 02_ink.png
+
+  - name: segment_lines
+    args:
+      binary: ${binarize_png}
+      eps_ink: 0
+      min_valley_rows: 1
+    save: 03_lines.json
+
+  - name: extract_ccs
+    args:
+      binary: ${binarize_png}
+      min_area: 5
+    save: 04_ccs.json
+
+  - name: estimate_baseline_and_xheight
+    args: {}
+    save: 05_metrics.json
+
+  - name: merge_ccs_to_glyphs
+    args:
+      pad_px: 1.0
+    save: 06_glyphs.json
+
+  - name: infer_space_threshold_per_line
+    args:
+      min_gaps_for_kmeans: 4
+      fallback_cutoff_factor: 0.60
+    save: 07_gaps.json
+
+  - name: insert_space_tokens
+    args: {}
+    save: 08_tokens_with_spaces.json
+
+  - name: identify_prose_runs_and_mask
+    args:
+      min_run_tokens: 5
+      raised_marker_min_per_line: 2
+    save: 09_prose_mask.json
+
+  - name: pick_residual
+    args: {}
+    save: 10_residual.json
+
+  - name: islandify
+    args:
+      pad: 1.0
+    save: 11_islands.json
+
+  - name: count_tokens
+    args: {}
+    save: 12_count.json
