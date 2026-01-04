@@ -132,49 +132,6 @@ def prune_rails(rails: List[Rail], total: int, min_abs: int, min_frac: float) ->
 # Passes
 # -----------------------------
 
-def to_gray_handle_alpha(img: np.ndarray) -> np.ndarray:
-    """
-    Convert an OpenCV-loaded image to grayscale.
-
-    Handles:
-      - Grayscale images (H, W)
-      - BGR images (H, W, 3)
-      - BGRA images (H, W, 4) by compositing alpha against white
-
-    Assumes OpenCV channel order (BGR[A]).
-    """
-    NDIM_GRAY = 2
-    NDIM_COLOR = 3
-
-    CHANNELS_BGR = 3
-    CHANNELS_BGRA = 4
-
-    ALPHA_CH = 3
-    COLOR_CH_SLICE = slice(0, 3)
-
-    WHITE_U8 = 255
-
-    if img.ndim == NDIM_GRAY:
-        return img
-
-    if img.ndim != NDIM_COLOR:
-        raise ValueError(f"Unsupported image ndim: {img.ndim}")
-
-    if img.shape[2] == CHANNELS_BGR:
-        return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    if img.shape[2] == CHANNELS_BGRA:
-        bgr = img[:, :, COLOR_CH_SLICE]
-        alpha = img[:, :, ALPHA_CH].astype(np.float32) / float(WHITE_U8)
-
-        gray_rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY).astype(np.float32)
-
-        gray = gray_rgb * alpha + float(WHITE_U8) * (1.0 - alpha)
-        return gray.astype(np.uint8)
-
-    raise ValueError(f"Unsupported channel count: {img.shape[2]}")
-
-
 def load_normalize(ctx: Context, cfg: Dict[str, Any]) -> None:
     """
     G0: Load & Normalize

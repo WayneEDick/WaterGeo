@@ -1,110 +1,84 @@
-# Runner.py — YAML step runner (context + ${step} references)
-# Usage:
-#   python Runner.py --script Script.yaml --outdir out
+"""
+Runner.py — Water Geo (Rails-first)
+
+Loads Script.yaml and executes each enabled step by calling Functions.py by name.
+
+Usage:
+  python Runner.py Script.yaml
+"""
 
 from __future__ import annotations
 
-import argparse
+import importlib
 import json
 import os
-import re
-from typing import Any, Dict, List
+import sys
+from pathlib import Path
+from typing import Any, Dict
 
-import yaml  # pip install pyyaml
+import yaml
 
-from Functions import REGISTRY
-
-_REF_RE = re.compile(r"^\$\{([^}]+)\}$")
-
-
-def _resolve_refs(obj: Any, context: Dict[str, Any]) -> Any:
-    if isinstance(obj, str):
-        m = _REF_RE.match(obj.strip())
-        if m:
-            key = m.group(1)
-            if key not in context:
-                raise KeyError(f"Unresolved reference: {obj} (missing '{key}' in context)")
-            return context[key]
-        return obj
-    if isinstance(obj, list):
-        return [_resolve_refs(x, context) for x in obj]
-    if isinstance(obj, dict):
-        return {k: _resolve_refs(v, context) for k, v in obj.items()}
-    return obj
+import Functions  # local file
 
 
-def _is_ndarray(x: Any) -> bool:
-    try:
-        import numpy as np
-        return isinstance(x, np.ndarray)
-    except Exception:
-        return False
+def load_yaml(path: str) -> Dict[str, Any]:
+    with open(path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
 
-def _save_output(obj: Any, path: str) -> None:
-    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-
-    if _is_ndarray(obj):
-        import cv2
-        arr = obj
-        if arr.ndim in (2, 3):
-            cv2.imwrite(path, arr)
-            return
-        raise ValueError(f"Cannot save ndarray with shape {arr.shape} to {path}")
-
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(obj, f, indent=2, ensure_ascii=False)
+def ensure_dir(p: Path) -> None:
+    p.mkdir(parents=True, exist_ok=True)
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--script", required=True, help="YAML script with steps")
-    ap.add_argument("--outdir", default="out", help="Output directory")
-    args = ap.parse_args()
+    if len(sys.argv) < 2:
+        print("Usage: python Runner.py Script.yaml")
+        return 2
 
-    with open(args.script, "r", encoding="utf-8") as f:
-        script = yaml.safe_load(f)
+    script_path = sys.argv[1]
+    cfg = load_yaml(script_path)
 
-    steps: List[Dict[str, Any]] = script.get("steps", [])
-    if not isinstance(steps, list) or not steps:
-        raise ValueError("Script must contain a non-empty 'steps' list.")
+    out_dir = Path(cfg["outputs"]["out_dir"])
+    ensure_dir(out_dir)
 
-    context: Dict[str, Any] = {}
-    outdir = os.path.abspath(args.outdir)
-    os.makedirs(outdir, exist_ok=True)
+    ctx: Dict[str, Any] = {"cfg": cfg}
 
-    for i, step in enumerate(steps, start=1):
-        name = step.get("name")
-        if not name or name not in REGISTRY:
-            raise KeyError(f"Step {i}: unknown function '{name}'. Known: {sorted(REGISTRY.keys())}")
+    for step in cfg.get("steps", []):
+        if not step.get("enabled", True):
+            continue
 
-        fn = REGISTRY[name]
-        raw_args = step.get("args", {}) or {}
-        if not isinstance(raw_args, dict):
-            raise ValueError(f"Step {i} '{name}': args must be a dict.")
+        name = step["name"]
+        fn_name = step["fn"]
+        fn = getattr(Functions, fn_name, None)
+        if fn is None:
+            raise RuntimeError(f"Step {name}: function not found: {fn_name}")
 
-        call_args = _resolve_refs(raw_args, context)
-        call_args["__context"] = context
+        print(f"\n=== {name} ({fn_name}) ===")
+        fn(ctx, cfg)
 
-        print(f"[{i:02d}] {name}")
-        out = fn(**call_args)
-        context[name] = out
+        # lightweight checkpoint after each step (safe to delete later)
+        if cfg["outputs"].get("save_json", True):
+            chk = out_dir / f"{name}.json"
+            with open(chk, "w", encoding="utf-8") as f:
+                json.dump(_jsonable(ctx), f, indent=2)
 
-        save = step.get("save")
-        if isinstance(save, str) and save.strip():
-            save_path = os.path.join(outdir, save.strip())
-            _save_output(out, save_path)
-            print(f"     saved -> {save_path}")
-
-        tname = type(out).__name__
-        if _is_ndarray(out):
-            print(f"     type  -> ndarray shape={out.shape} dtype={out.dtype}")
-        elif isinstance(out, (list, dict)):
-            print(f"     type  -> {tname} len={len(out)}")
-        else:
-            print(f"     type  -> {tname}")
-
+    print("\nDone.")
     return 0
+
+
+def _jsonable(x: Any) -> Any:
+    """
+    Make ctx JSON-safe. This is intentionally simple; refine later.
+    """
+    if isinstance(x, (str, int, float, bool)) or x is None:
+        return x
+    if isinstance(x, dict):
+        return {k: _jsonable(v) for k, v in x.items()}
+    if isinstance(x, (list, tuple)):
+        return [_jsonable(v) for v in x]
+    if hasattr(x, "__dict__"):
+        return _jsonable(vars(x))
+    return str(x)
 
 
 if __name__ == "__main__":

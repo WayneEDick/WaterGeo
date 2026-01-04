@@ -1,101 +1,100 @@
-# Script_02_000.yaml — Water Geo (PNG-first, CC-first, column-aware)
-# Core pipeline:
-# load_image -> binarize_png -> extract_ccs ->
-# estimate_text_scale_from_ccs -> detect_graphics_blocks_from_ccs ->
-# segment_columns_from_ccs -> assign_ccs_to_columns ->
-# segment_lines_per_column_from_ccs -> merge_ccs_to_glyphs ->
-# infer_space_threshold_per_line -> insert_space_tokens ->
-# identify_prose_runs_and_mask -> pick_residual -> islandify -> count_tokens
+# Water Geo v2 (Rails-first) execution script
+#
+# This script is intentionally explicit:
+# - What runs (steps)
+# - In what order
+# - With which parameters
+#
+# Runner.py loads this YAML, then calls Functions.py by name.
+
+meta:
+  pipeline: WaterGeo
+  version: v2.1-rails
+  created: 2026-01-02
+  notes:
+    - "Born-digital PNG: assume page-aligned (angle 0 or 90)."
+    - "Columns are derived; column boundaries (gutters) are detected as geometric obstacles."
+    - "Bad justification handled by persistence + crossings + two-rail test."
+
+inputs:
+  png_path: "C:/Users/wayne/OneDrive/Documents/Jupyter/water/Geo/Code/input/input.png"
+  dpi: 300
+  expected_polarity: "auto"   # auto|dark_ink|light_ink
+  approx_x_height_px: null    # optional prior
+
+outputs:
+  out_dir: "out_geo"
+  save_debug_images: true
+  save_json: true
+
+params:
+  cc:
+    connectivity: 8
+    min_area_px: 3
+  rails:
+    # eps_rail is computed as eps_frac * h_star(mode)
+    eps_frac_min: 0.06
+    eps_frac_max: 0.12
+    # rail support pruning
+    min_support_abs: 10
+    min_support_frac: 0.015
+  lines:
+    # candidate band height window relative to mode h_star
+    h_min_frac: 0.75
+    h_max_frac: 1.60
+    # line-local rail tolerance multiplier
+    eps_line_mult: 0.50
+  gutters:
+    # Stage A (candidate gaps inside strips)
+    breuel_multiplier: 1.5
+    gap_long_percentile: 0.85
+    # Stage C (accept/reject predicates)
+    support_ratio_min: 0.35   # persistence across strips (raise to 0.50 for clean two-column)
+    cross_rate_max: 0.20      # average crossings per strip (0.1–0.3 reasonable)
+    edge_peak_neighborhood_px: 6
+    width_iqr_max_px: 12      # tighten/loosen per DPI
 
 steps:
-  - name: load_image
-    args:
-      path: input/input.png
-    save: 01_gray.png
+  # G0–G2
+  - name: G0_load_normalize
+    fn: load_normalize
+    enabled: true
+  - name: G1_binarize
+    fn: binarize
+    enabled: true
+  - name: G2_connected_components
+    fn: connected_components
+    enabled: true
 
-  - name: binarize_png
-    args:
-      method: otsu
-      invert: false
-      blur_ksize: 0
-      threshold: 200
-    save: 02_ink.png
+  # Rails-first structure recovery (new)
+  - name: R0_find_rails_and_lines
+    fn: find_rails_and_lines
+    enabled: true
 
-  - name: extract_ccs
-    args:
-      min_area: 5
-      connectivity: 8
-    save: 03_ccs.json
+  - name: R1_find_columns_from_lrails
+    fn: find_columns_from_lrails
+    enabled: true
 
-  - name: estimate_text_scale_from_ccs
-    args:
-      trim_top_frac: 0.10
-      min_ccs: 50
-      fallback_xheight: 16.0
-    save: 04_text_scale.json
+  - name: R2_assign_lines_to_columns
+    fn: assign_lines_to_columns
+    enabled: true
 
-  - name: detect_graphics_blocks_from_ccs
-    args:
-      h_factor: 6.0
-      w_factor: 20.0
-      area_factor: 200.0
-      pad_px: 2.0
-    save: 05_graphics_blocks.json
-
-  - name: segment_columns_from_ccs
-    args:
-      bins: 512
-      gutter_max_frac: 0.20
-      gutter_min_px: 12
-      prefer_mid_frac: 0.35
-      ignore_graphics: true
-    save: 06_columns.json
-
-  - name: assign_ccs_to_columns
-    args:
-      keep_spanning: true
-      spanning_gutter_overlap_frac: 0.35
-    save: 07_ccs_with_columns.json
-
-  - name: segment_lines_per_column_from_ccs
-    args:
-      y_gap_factor: 0.80
-      min_line_ccs: 8
-      ignore_graphics: true
-    save: 08_lines.json
-
-  - name: merge_ccs_to_glyphs
-    args:
-      pad_px: 1.0
-    save: 09_glyphs.json
-
-  - name: infer_space_threshold_per_line
-    args:
-      min_gaps_for_kmeans: 4
-      fallback_cutoff_factor: 0.60
-    save: 10_space_thresholds.json
-
-  - name: insert_space_tokens
-    args: {}
-    save: 11_tokens_with_space.json
-
-  - name: identify_prose_runs_and_mask
-    args:
-      min_run_tokens: 5
-      max_token_height_factor: 2.5
-      raised_marker_min_per_line: 2
-      raised_center_factor: 0.45
-    save: 12_prose_mask.json
-
-  - name: pick_residual
-    args: {}
-    save: 13_residual.json
-
-  - name: islandify
-    args:
-      pad: 1.0
-    save: 14_islands.json
-
-  - name: count_tokens
-    args: {}
-    save: 15_count.json
+  # Continue with Water Geo v2 phases (placeholders here)
+  - name: G6_glyph_clustering
+    fn: glyph_clustering
+    enabled: false
+  - name: G7_gap_tokens_and_islands
+    fn: gap_tokens_and_islands
+    enabled: false
+  - name: G8_mer_detection
+    fn: mer_detection
+    enabled: false
+  - name: G9_tmi_detection
+    fn: tmi_detection
+    enabled: false
+  - name: G10_block_detection
+    fn: block_detection
+    enabled: false
+  - name: G11_build_geo_cil
+    fn: build_geo_cil
+    enabled: false
