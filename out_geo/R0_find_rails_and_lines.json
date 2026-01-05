@@ -1,0 +1,131 @@
+{
+  "cfg": {
+    "meta": {
+      "pipeline": "WaterGeo",
+      "version": "v2.1-rails",
+      "created": "2026-01-02",
+      "notes": [
+        "Born-digital PNG: assume page-aligned (angle 0 or 90).",
+        "Columns are derived; column boundaries (gutters) are detected as geometric obstacles.",
+        "Bad justification handled by persistence + crossings + two-rail test."
+      ]
+    },
+    "inputs": {
+      "png_path": "C:/Users/wayne/OneDrive/Documents/Jupyter/water/Geo/Code/input/input.png",
+      "dpi": 300,
+      "expected_polarity": "auto",
+      "approx_x_height_px": null
+    },
+    "outputs": {
+      "out_dir": "out_geo",
+      "save_debug_images": true,
+      "save_json": true
+    },
+    "params": {
+      "cc": {
+        "connectivity": 8,
+        "min_area_px": 3
+      },
+      "rails": {
+        "eps_frac_min": 0.06,
+        "eps_frac_max": 0.12,
+        "min_support_abs": 10,
+        "min_support_frac": 0.015
+      },
+      "lines": {
+        "h_min_frac": 0.75,
+        "h_max_frac": 1.6,
+        "eps_line_mult": 0.5
+      },
+      "gutters": {
+        "breuel_multiplier": 1.5,
+        "gap_long_percentile": 0.85,
+        "support_ratio_min": 0.35,
+        "cross_rate_max": 0.2,
+        "edge_peak_neighborhood_px": 6,
+        "width_iqr_max_px": 12
+      }
+    },
+    "steps": [
+      {
+        "name": "G0_load_normalize",
+        "fn": "load_normalize",
+        "enabled": true
+      },
+      {
+        "name": "G1_binarize",
+        "fn": "binarize",
+        "enabled": true
+      },
+      {
+        "name": "G2_connected_components",
+        "fn": "connected_components",
+        "enabled": true
+      },
+      {
+        "name": "R0_find_rails_and_lines",
+        "fn": "find_rails_and_lines",
+        "enabled": true
+      },
+      {
+        "name": "R1_find_columns_from_lrails",
+        "fn": "find_columns_from_lrails",
+        "enabled": true
+      },
+      {
+        "name": "R2_assign_lines_to_columns",
+        "fn": "assign_lines_to_columns",
+        "enabled": true
+      },
+      {
+        "name": "G6_glyph_clustering",
+        "fn": "glyph_clustering",
+        "enabled": false
+      },
+      {
+        "name": "G7_gap_tokens_and_islands",
+        "fn": "gap_tokens_and_islands",
+        "enabled": false
+      },
+      {
+        "name": "G8_mer_detection",
+        "fn": "mer_detection",
+        "enabled": false
+      },
+      {
+        "name": "G9_tmi_detection",
+        "fn": "tmi_detection",
+        "enabled": false
+      },
+      {
+        "name": "G10_block_detection",
+        "fn": "block_detection",
+        "enabled": false
+      },
+      {
+        "name": "G11_build_geo_cil",
+        "fn": "build_geo_cil",
+        "enabled": false
+      }
+    ]
+  },
+  "imageGray": "[[255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n ...\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]]",
+  "page": {
+    "H": 115,
+    "W": 284,
+    "dpi": 300,
+    "path": "C:\\Users\\wayne\\OneDrive\\Documents\\Jupyter\\water\\Geo\\Code\\input\\input.png"
+  },
+  "mask255": "[[0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]\n ...\n [0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]]",
+  "mask01": "[[0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]\n ...\n [0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]]",
+  "imageBin": "[[255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n ...\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]]",
+  "ccCount": 31,
+  "ccLabels": "[[0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]\n ...\n [0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]\n [0 0 0 ... 0 0 0]]",
+  "ccStats": "[[    0     0   284   115 30943]\n [   49    16     3     3     6]\n [  130    16     3     3     6]\n [   11    18    16    18    96]\n [   95    18     5    18    40]\n [  120    18     8    18    53]\n [  137    18     5    18    40]\n [   34    22    11    14    74]\n [   49    22     2    14    28]\n [   55    22    20    14   108]\n [   79    22    12    19    92]\n [  101    22    12    14    82]\n [  130    22     2    14    28]\n [  143    22    12    14    82]\n [  158    33     4     3    10]\n [  134    71     8    12    41]\n [  195    71     8    12    41]\n [  258    71     8    12    41]\n [  179    73    13    20    91]\n [   13    75    12    18    88]\n [   91    75     5    18    40]\n [  153    76    17    18    66]\n [   26    79    13    14    76]\n [   43    79     7    14    38]\n [   52    79    20    14   108]\n [   76    79    11    14    68]\n [   97    79    12    14    84]\n [  118    80    14    13    74]\n [  216    81    17     2    34]\n [  244    80    11    13    48]\n [  216    87    17     2    34]]",
+  "ccCentroids": "[[143.45978089  56.86106712]\n [ 49.83333333  17.16666667]\n [130.83333333  17.16666667]\n [ 18.71875     27.27083333]\n [ 95.925       27.25      ]\n [123.79245283  24.8490566 ]\n [137.925       27.25      ]\n [ 39.24324324  28.75675676]\n [ 49.5         28.5       ]\n [ 64.39814815  27.36111111]\n [ 83.59782609  29.54347826]\n [106.65853659  28.37804878]\n [130.5         28.5       ]\n [148.65853659  28.37804878]\n [159.5         33.8       ]\n [138.2195122   77.14634146]\n [199.2195122   77.14634146]\n [262.2195122   77.14634146]\n [184.79120879  83.92307692]\n [ 16.22727273  81.86363636]\n [ 91.925       84.25      ]\n [160.75757576  84.5       ]\n [ 32.15789474  85.5       ]\n [ 44.42105263  84.07894737]\n [ 61.39814815  84.36111111]\n [ 81.07352941  86.44117647]\n [103.02380952  85.86904762]\n [124.40540541  86.44594595]\n [224.          81.5       ]\n [248.16666667  86.3125    ]\n [224.          87.5       ]]",
+  "ccs": [],
+  "modes": [],
+  "rails": [],
+  "lineBands": [],
+  "lineRails": []
+}
