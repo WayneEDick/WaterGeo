@@ -22,11 +22,27 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple, Callable
+from pathlib import Path
 import numpy as np
 
 
 import os
 import cv2
+# ============================================================
+# CC Debug Rendering Constants (Grayscale)
+# ============================================================
+
+# Grayscale levels (0 = black, 255 = white)
+GRAY_BACKGROUND = 255   # white
+GRAY_LIGHT      = 210   # low density
+GRAY_MEDIUM     = 150   # medium density
+GRAY_DARK       = 90    # high density
+GRAY_OVERLAP    = 30    # bbox overlap (>= 2)
+
+# Density thresholds
+DENSITY_LIGHT_MAX  = 0.20
+DENSITY_MEDIUM_MAX = 0.45
+
 # -----------------------------
 # Types
 # -----------------------------
@@ -296,6 +312,117 @@ def connected_components(ctx: Context, cfg: Dict[str, Any]) -> None:
     ctx["ccStats"] = stats
     ctx["ccCentroids"] = centroids
     ctx["ccs"] = []
+
+
+def build_ccs(ctx: Context, cfg: Dict[str, Any]) -> None:
+    """
+    G2b: Build CC objects from OpenCV stats/centroids.
+
+    Requires:
+      ctx["ccStats"], ctx["ccCentroids"] from connected_components()
+
+    Produces:
+      ctx["ccs"] : List[CC]
+    """
+    stats = ctx.get("ccStats", None)
+    cents = ctx.get("ccCentroids", None)
+    if stats is None or cents is None:
+        raise ValueError("build_ccs: requires ccStats and ccCentroids in ctx (run connected_components first)")
+
+    ccs: List[CC] = []
+
+    # OpenCV stats rows: [x, y, w, h, area]; background label is 0 at index 0
+    for label in range(1, int(stats.shape[0])):  # skip background
+        x = int(stats[label, 0])
+        y = int(stats[label, 1])
+        w = int(stats[label, 2])
+        h = int(stats[label, 3])
+        area = int(stats[label, 4])
+
+        min_area = int(cfg.get("params", {}).get("cc", {}).get("min_area_px", 1))
+        if area < min_area:
+            continue
+        if w <= 0 or h <= 0:
+            continue
+
+        cx = float(cents[label, 0])
+        cy = float(cents[label, 1])
+
+        # CC.box_center is (y, x) by convention
+        ccs.append(CC(
+            id=int(label),
+            bbox=(y, x, h, w),
+            area=area,
+            box_center=(cy, cx),
+        ))
+
+    ctx["ccs"] = ccs
+
+
+def debug_render_cc_boxes(ctx: Context, cfg: Dict[str, Any]) -> None:
+    """
+    G2c: Debug Render CC Boxes (rectangle-only)
+
+    Creates a grayscale page artifact where each CC bounding box is filled with a
+    discrete gray level determined by density = area / (h*w). Overlaps (bbox overlap)
+    are forced to GRAY_OVERLAP.
+
+    Requires:
+      ctx["page"] : contains H, W, path
+      ctx["ccs"]  : built by build_ccs()
+
+    Writes:
+      <out_dir>/<stem>_cc_boxes.png
+    """
+    page = ctx.get("page", None)
+    if page is None:
+        raise ValueError("debug_render_cc_boxes: ctx['page'] missing (run load_normalize first)")
+
+    H = int(page["H"])
+    W = int(page["W"])
+    in_path = str(page.get("path", "page"))
+    stem = Path(in_path).stem
+
+    out_dir = Path(cfg["outputs"]["out_dir"])
+    out_png = out_dir / f"{stem}_cc_boxes.png"
+
+    ccs: List[CC] = ctx.get("ccs", [])
+    # Always produce an image so you can tell the step ran.
+    G = np.full((H, W), GRAY_BACKGROUND, dtype=np.uint8)
+    K = np.zeros((H, W), dtype=np.uint8)
+
+    for cc in ccs:
+        t, l, h, w = cc.bbox
+        if h <= 0 or w <= 0:
+            continue
+
+        density = float(cc.area) / float(h * w)
+
+        if density < DENSITY_LIGHT_MAX:
+            gray = GRAY_LIGHT
+        elif density < DENSITY_MEDIUM_MAX:
+            gray = GRAY_MEDIUM
+        else:
+            gray = GRAY_DARK
+
+        y0 = max(0, t)
+        y1 = min(H, t + h)
+        x0 = max(0, l)
+        x1 = min(W, l + w)
+        if y1 <= y0 or x1 <= x0:
+            continue
+
+        G[y0:y1, x0:x1] = gray
+        K[y0:y1, x0:x1] += 1
+
+    G[K >= 2] = GRAY_OVERLAP
+
+    upscale = int(cfg.get("outputs", {}).get("debug_upscale", 2) or 2)
+    if upscale != 1:
+        G = np.repeat(np.repeat(G, upscale, axis=0), upscale, axis=1)
+
+    cv2.imwrite(str(out_png), G)
+    ctx["debug_cc_boxes_png"] = str(out_png)
 
 
 def find_rails_and_lines(ctx: Context, cfg: Dict[str, Any]) -> None:

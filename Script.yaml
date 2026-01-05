@@ -1,100 +1,81 @@
-# Water Geo v2 (Rails-first) execution script
-#
-# This script is intentionally explicit:
-# - What runs (steps)
-# - In what order
-# - With which parameters
-#
-# Runner.py loads this YAML, then calls Functions.py by name.
-
 meta:
   pipeline: WaterGeo
   version: v2.1-rails
   created: 2026-01-02
   notes:
-    - "Born-digital PNG: assume page-aligned (angle 0 or 90)."
-    - "Columns are derived; column boundaries (gutters) are detected as geometric obstacles."
-    - "Bad justification handled by persistence + crossings + two-rail test."
-
+  - 'Born-digital PNG: assume page-aligned (angle 0 or 90).'
+  - Columns are derived; column boundaries (gutters) are detected as geometric obstacles.
+  - Bad justification handled by persistence + crossings + two-rail test.
 inputs:
-  png_path: "C:/Users/wayne/OneDrive/Documents/Jupyter/water/Geo/Code/input/input.png"
+  png_path: C:/Users/wayne/OneDrive/Documents/Jupyter/water/Geo/Code/input/input.png
   dpi: 300
-  expected_polarity: "auto"   # auto|dark_ink|light_ink
-  approx_x_height_px: null    # optional prior
-
+  expected_polarity: auto
+  approx_x_height_px: null
 outputs:
-  out_dir: "out_geo"
+  out_dir: out_geo
   save_debug_images: true
   save_json: true
-
+  debug_upscale: 2
 params:
   cc:
     connectivity: 8
     min_area_px: 3
   rails:
-    # eps_rail is computed as eps_frac * h_star(mode)
     eps_frac_min: 0.06
     eps_frac_max: 0.12
-    # rail support pruning
     min_support_abs: 10
     min_support_frac: 0.015
   lines:
-    # candidate band height window relative to mode h_star
     h_min_frac: 0.75
-    h_max_frac: 1.60
-    # line-local rail tolerance multiplier
-    eps_line_mult: 0.50
+    h_max_frac: 1.6
+    eps_line_mult: 0.5
   gutters:
-    # Stage A (candidate gaps inside strips)
     breuel_multiplier: 1.5
     gap_long_percentile: 0.85
-    # Stage C (accept/reject predicates)
-    support_ratio_min: 0.35   # persistence across strips (raise to 0.50 for clean two-column)
-    cross_rate_max: 0.20      # average crossings per strip (0.1–0.3 reasonable)
+    support_ratio_min: 0.35
+    cross_rate_max: 0.2
     edge_peak_neighborhood_px: 6
-    width_iqr_max_px: 12      # tighten/loosen per DPI
-
+    width_iqr_max_px: 12
 steps:
-  # G0–G2
-  - name: G0_load_normalize
-    fn: load_normalize
-    enabled: true
-  - name: G1_binarize
-    fn: binarize
-    enabled: true
-  - name: G2_connected_components
-    fn: connected_components
-    enabled: true
-
-  # Rails-first structure recovery (new)
-  - name: R0_find_rails_and_lines
-    fn: find_rails_and_lines
-    enabled: true
-
-  - name: R1_find_columns_from_lrails
-    fn: find_columns_from_lrails
-    enabled: true
-
-  - name: R2_assign_lines_to_columns
-    fn: assign_lines_to_columns
-    enabled: true
-
-  # Continue with Water Geo v2 phases (placeholders here)
-  - name: G6_glyph_clustering
-    fn: glyph_clustering
-    enabled: false
-  - name: G7_gap_tokens_and_islands
-    fn: gap_tokens_and_islands
-    enabled: false
-  - name: G8_mer_detection
-    fn: mer_detection
-    enabled: false
-  - name: G9_tmi_detection
-    fn: tmi_detection
-    enabled: false
-  - name: G10_block_detection
-    fn: block_detection
-    enabled: false
-  - name: G11_build_geo_cil
-    fn: build_geo_cil
-    enabled: false
+- name: G0_load_normalize
+  fn: load_normalize
+  enabled: true
+- name: G1_binarize
+  fn: binarize
+  enabled: true
+- name: G2_connected_components
+  fn: connected_components
+  enabled: true
+- name: G2b_build_ccs
+  fn: build_ccs
+  enabled: true
+- name: G2c_debug_cc_boxes
+  fn: debug_render_cc_boxes
+  enabled: true
+- name: R0_find_rails_and_lines
+  fn: find_rails_and_lines
+  enabled: true
+- name: R1_find_columns_from_lrails
+  fn: find_columns_from_lrails
+  enabled: true
+- name: R2_assign_lines_to_columns
+  fn: assign_lines_to_columns
+  enabled: true
+- name: G6_glyph_clustering
+  fn: glyph_clustering
+  enabled: false
+- name: G7_gap_tokens_and_islands
+  fn: gap_tokens_and_islands
+  enabled: false
+- name: G8_mer_detection
+  fn: mer_detection
+  enabled: false
+- name: G9_tmi_detection
+  fn: tmi_detection
+  enabled: false
+- name: G10_block_detection
+  fn: block_detection
+  enabled: false
+- name: G11_build_geo_cil
+  fn: build_geo_cil
+  enabled: false

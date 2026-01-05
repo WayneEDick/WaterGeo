@@ -19,7 +19,8 @@
     "outputs": {
       "out_dir": "out_geo",
       "save_debug_images": true,
-      "save_json": true
+      "save_json": true,
+      "debug_upscale": 2
     },
     "params": {
       "cc": {
@@ -60,6 +61,16 @@
       {
         "name": "G2_connected_components",
         "fn": "connected_components",
+        "enabled": true
+      },
+      {
+        "name": "G2b_build_ccs",
+        "fn": "build_ccs",
+        "enabled": true
+      },
+      {
+        "name": "G2c_debug_cc_boxes",
+        "fn": "debug_render_cc_boxes",
         "enabled": true
       },
       {
@@ -111,8 +122,8 @@
   },
   "imageGray": "[[255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n ...\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]\n [255 255 255 ... 255 255 255]]",
   "page": {
-    "H": 115,
-    "W": 284,
+    "H": 2200,
+    "W": 1700,
     "dpi": 300,
     "path": "C:\\Users\\wayne\\OneDrive\\Documents\\Jupyter\\water\\Geo\\Code\\input\\input.png"
   }
