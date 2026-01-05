@@ -262,12 +262,40 @@ def binarize(ctx: Context, cfg: Dict[str, Any]) -> None:
 
 def connected_components(ctx: Context, cfg: Dict[str, Any]) -> None:
     """
-    G2: Connected Components (placeholder)
-    Expected outputs:
-      ctx["ccs"] = List[CC]
-      ctx["ccLabels"] (optional)
+    G2: Connected Components
+    Requires ctx["bin"] (uint8 image, 0 background, 255 foreground) from G1_binarize.
+    Outputs:
+      ctx["ccLabels"] : int32 label image
+      ctx["ccCount"]  : number of labels (including background label 0)
+      ctx["ccStats"]  : stats array [label, x, y, w, h, area]
+      ctx["ccCentroids"] : centroids array
     """
-    raise NotImplementedError("Hook this to your existing CC extractor.")
+    bin_img = ctx.get("mask255", None)
+    if bin_img is None:
+        raise ValueError('connected_components: ctx["bin"] is missing. Did G1_binarize run?')
+
+    try:
+        import cv2  # type: ignore
+    except Exception as e:
+        raise ImportError(
+            "connected_components: OpenCV (cv2) not available in this venv. "
+            "Install with: pip install opencv-python"
+        ) from e
+
+    # Ensure foreground is 255 and background is 0
+    # (OpenCV expects non-zero as foreground)
+    if bin_img.dtype != "uint8":
+        bin_img = bin_img.astype("uint8")
+
+    num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(
+        bin_img, connectivity=8
+    )
+
+    ctx["ccCount"] = num_labels
+    ctx["ccLabels"] = labels
+    ctx["ccStats"] = stats
+    ctx["ccCentroids"] = centroids
+    ctx["ccs"] = []
 
 
 def find_rails_and_lines(ctx: Context, cfg: Dict[str, Any]) -> None:
