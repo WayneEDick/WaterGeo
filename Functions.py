@@ -499,52 +499,515 @@ def find_rails_and_lines(ctx: Context, cfg: Dict[str, Any]) -> None:
     ctx["lineRails"] = []
 
 
+# -----------------------------
+# R1 helpers: gutters/columns (G3) using existing LineBands as strips
+# -----------------------------
+
+def _cc_intersects_yband(cc: CC, y0: int, y1: int) -> bool:
+    # half-open y-intervals
+    t = cc.bbox[0]
+    b = bbox_bottom(cc.bbox)
+    return not (b <= y0 or t >= y1)
+
+
+def _cc_intersects_xband(cc: CC, x0: int, x1: int) -> bool:
+    l = cc.bbox[1]
+    r = bbox_right(cc.bbox)
+    return not (r <= x0 or l >= x1)
+
+
+def _strip_ccs(ccs: List[CC], y0: int, y1: int) -> List[CC]:
+    return [cc for cc in ccs if _cc_intersects_yband(cc, y0, y1)]
+
+
+def _iqr(vals: List[float]) -> float:
+    if not vals:
+        return float("inf")
+    a = np.asarray(vals, dtype=np.float32)
+    q1 = float(np.percentile(a, 25))
+    q3 = float(np.percentile(a, 75))
+    return q3 - q1
+
+
+def _percentile_pos(vals: List[int], p: float, default: float) -> float:
+    if not vals:
+        return default
+    a = np.asarray([v for v in vals if v > 0], dtype=np.float32)
+    if a.size == 0:
+        return default
+    return float(np.percentile(a, p))
+
+
+def _smooth_1d(x: np.ndarray, win: int) -> np.ndarray:
+    if win <= 1:
+        return x
+    win = int(win)
+    if win % 2 == 0:
+        win += 1
+    k = np.ones((win,), dtype=np.float32) / float(win)
+    return np.convolve(x.astype(np.float32), k, mode="same")
+
+
+def _runs_from_bool(mask: np.ndarray) -> List[Tuple[int, int]]:
+    runs: List[Tuple[int, int]] = []
+    in_run = False
+    start = 0
+    for i in range(mask.size):
+        if bool(mask[i]) and not in_run:
+            in_run = True
+            start = i
+        elif (not bool(mask[i])) and in_run:
+            in_run = False
+            runs.append((start, i))
+    if in_run:
+        runs.append((start, int(mask.size)))
+    return runs
+
+
+def _expand_run_to_local_threshold(acc_s: np.ndarray, a0: int, a1: int, *, frac: float) -> Tuple[int, int]:
+    seg = acc_s[a0:a1]
+    if seg.size == 0:
+        return (a0, a1)
+    p = int(a0 + int(np.argmax(seg)))
+    peak = float(acc_s[p])
+    if peak <= 0:
+        return (a0, a1)
+    thr = frac * peak
+    L = p
+    R = p + 1
+    while L > 0 and float(acc_s[L - 1]) >= thr:
+        L -= 1
+    while R < acc_s.size and float(acc_s[R]) >= thr:
+        R += 1
+    return (int(L), int(R))
+
+
+def _derive_columns_from_gutters(W: int, gutters: List[GutterBand]) -> List[Column]:
+    intervals = sorted([(max(0, g.x0), min(W, g.x1)) for g in gutters], key=lambda t: (t[0], t[1]))
+    merged: List[List[int]] = []
+    for (a0, a1) in intervals:
+        if a1 <= a0:
+            continue
+        if not merged:
+            merged.append([a0, a1])
+        else:
+            b0, b1 = merged[-1]
+            if a0 <= b1:
+                merged[-1][1] = max(b1, a1)
+            else:
+                merged.append([a0, a1])
+
+    cols: List[Column] = []
+    cur = 0
+    for (g0, g1) in merged:
+        if g0 > cur:
+            cols.append(Column(x0=int(cur), x1=int(g0), confidence=1.0))
+        cur = max(cur, g1)
+    if cur < W:
+        cols.append(Column(x0=int(cur), x1=int(W), confidence=1.0))
+    return cols
+
+
+def draw_debug_rails_png(
+    png_in_path: str,
+    png_out_path: str,
+    *,
+    ccs: Optional[List[CC]] = None,
+    gutters: Optional[List[GutterBand]] = None,
+    columns: Optional[List[Column]] = None,
+    draw_cc_boxes: bool = True,
+    cc_alpha: float = 0.18,
+    rail_alpha: float = 0.90,
+    rail_thickness: int = 2,
+    cc_thickness: int = 1,
+) -> str:
+    """
+    Draw only:
+      - gutter boundary rails (x0 and x1 for each gutter)
+      - optional column boundary rails (x0/x1 per column)
+      - optional faint CC rectangles
+    Does NOT draw inline gaps.
+    """
+    img = cv2.imread(png_in_path, cv2.IMREAD_COLOR)
+    if img is None:
+        raise FileNotFoundError(f"Could not read: {png_in_path}")
+    H, W = img.shape[:2]
+
+    base = img.copy()
+    overlay_cc = img.copy()
+    overlay_rails = img.copy()
+
+    if draw_cc_boxes and ccs:
+        for cc in ccs:
+            t, l, h, w = cc.bbox
+            x0 = max(0, min(W - 1, int(l)))
+            y0 = max(0, min(H - 1, int(t)))
+            x1 = max(0, min(W - 1, int(l + w)))
+            y1 = max(0, min(H - 1, int(t + h)))
+            cv2.rectangle(overlay_cc, (x0, y0), (x1, y1), (255, 255, 255), cc_thickness)
+
+    if gutters:
+        for g in gutters:
+            x0 = max(0, min(W - 1, int(g.x0)))
+            x1 = max(0, min(W - 1, int(g.x1)))
+            cv2.line(overlay_rails, (x0, 0), (x0, H - 1), (255, 255, 255), rail_thickness)
+            cv2.line(overlay_rails, (x1, 0), (x1, H - 1), (255, 255, 255), rail_thickness)
+
+    if columns:
+        for c in columns:
+            x0 = max(0, min(W - 1, int(c.x0)))
+            x1 = max(0, min(W - 1, int(c.x1)))
+            cv2.line(overlay_rails, (x0, 0), (x0, H - 1), (255, 255, 255), 1)
+            cv2.line(overlay_rails, (x1, 0), (x1, H - 1), (255, 255, 255), 1)
+
+    out = cv2.addWeighted(overlay_cc, float(cc_alpha), base, 1.0 - float(cc_alpha), 0.0)
+    out = cv2.addWeighted(overlay_rails, float(rail_alpha), out, 1.0 - float(rail_alpha), 0.0)
+    cv2.imwrite(png_out_path, out)
+    return png_out_path
+
 def find_columns_from_lrails(ctx: Context, cfg: Dict[str, Any]) -> None:
     """
-    R1: FindColumnsFromLRails (Water-Geo)
+    R1: FindColumnsFromLRails (Water-Geo) — LEFT-RAIL ANCHORED
 
-    This is the place we bake in the *anti-bad-justification* logic:
-    - Candidate gaps (Breuel-style thresholding)
-    - Promote to global gutter bands by persistence across strips
-    - Accept only if all acceptance predicates pass:
-        C1 persistence, C2 low crossings, C3 two-rail boundary, C4 width stability
+    Core invariant:
+      • Real vertical separators (margins, gutters) have a straight LEFT rail (anchor).
+      • The opposing boundary may be ragged; we represent it by an envelope (quantile).
+      • Rivers (justification artifacts) do not create a stable anchor rail.
 
     Produces:
-      ctx["gutters"] : List[GutterBand]
-      ctx["columns"] : List[Column]
+      ctx["gutters"] : List[GutterBand] (corridors between envelope and anchor)
+      ctx["columns"] : List[Column]     (complements of gutters)
+      ctx["debugRailsPng"] (optional)   (thin black rails + bbox-only CCs)
     """
-    # This pass assumes you already have line strips/bands.
+    ccs: List[CC] = ctx.get("ccs", [])
     line_bands: List[LineBand] = ctx.get("lineBands", [])
-    ccs: List[CC] = ctx["ccs"]
 
-    # If you haven't built line bands yet, you can use coarse "bands" as strips.
-    # For now, treat as placeholder.
-    strips = line_bands
+    page = ctx.get("page", {})
+    W = int(page.get("W", 0))
+    H = int(page.get("H", 0))
 
-    # --- TODO(1): per-strip candidate gaps (Stage A) ---
-    # --- TODO(2): vote to global x-bands (Stage B) ---
-    # --- TODO(3): apply acceptance predicates (Stage C) ---
+    if W <= 0 or H <= 0:
+        raise ValueError("find_columns_from_lrails: missing page W/H in ctx['page']")
 
-    ctx["gutters"] = []
-    ctx["columns"] = []
+    if not ccs:
+        ctx["gutters"] = []
+        ctx["columns"] = [Column(0, W, 0.0)]
+        return
+
+    # Fallback: allow R1 to run before R0 produces validated line bands.
+    if not line_bands:
+        step = int(cfg.get("params", {}).get("gutters", {}).get("fallback_band_step_px", 32))
+        if step <= 0:
+            step = 32
+        y = 0
+        line_bands = []
+        while y < H:
+            y2 = min(H, y + step)
+            line_bands.append(LineBand(y_top=y, y_bot=y2, mode_id=0, support_cc_ids=[], score=0.0))
+            y = y2
+
+    gcfg = cfg["params"]["gutters"]
+
+    # Minimum corridor width (your "1.5–2em" intuition belongs here)
+    min_width_px = float(gcfg.get("min_width_px", 18))
+
+    # Voting + candidate generation (keep Breuel-ish to find “big gaps”, but acceptance is rail-based)
+    breuel_multiplier = float(gcfg.get("breuel_multiplier", 1.5))
+    gap_long_percentile = 100.0 * float(gcfg.get("gap_long_percentile", 0.85))
+    edge_peak_neighborhood_px = int(gcfg.get("edge_peak_neighborhood_px", 7))
+
+    # Acceptance
+    support_ratio_min = float(gcfg.get("support_ratio_min", 0.35))
+    cross_rate_max = float(gcfg.get("cross_rate_max", 0.20))
+
+    # Anchor straightness threshold (in px). Keep conservative and simple.
+    # You can later tie this to h_star, but this works now.
+    anchor_std_max = float(gcfg.get("anchor_std_max_px", 8.0))
+
+    # Envelope quantile: high quantile of ragged boundary (right edges) gives a stable frontier
+    env_q = float(gcfg.get("envelope_quantile", 90.0))
+
+    # Reduce noise at extreme edges (still useful), but do NOT use this to reject real margins.
+    margin_px = int(0.02 * W)
+
+    # ------------------------------------------------------------
+    # 1) Accumulate corridor votes in X (evidence only)
+    # ------------------------------------------------------------
+    acc = np.zeros((W,), dtype=np.float32)
+
+    # We also keep per-strip gap stats so we can compute g_long per strip.
+    for band in line_bands:
+        y0 = int(band.y_top)
+        y1 = int(band.y_bot)
+        sc = _strip_ccs(ccs, y0, y1)
+        if len(sc) < 2:
+            continue
+        sc = sorted(sc, key=lambda c: (c.bbox[1], bbox_right(c.bbox)))
+
+        gaps: List[int] = []
+        spans: List[Tuple[int, int]] = []
+        for i in range(len(sc) - 1):
+            L = sc[i]
+            R = sc[i + 1]
+            gap = int(R.bbox[1] - bbox_right(L.bbox))
+            if gap > 0:
+                gaps.append(gap)
+                spans.append((int(bbox_right(L.bbox)), int(R.bbox[1])))
+
+        g_long = _percentile_pos(gaps, gap_long_percentile, default=float(max(int(min_width_px), 12)))
+
+        for (gap, (xL, xR)) in zip(gaps, spans):
+            # Candidate gating: only unusually large gaps become evidence.
+            if gap < min_width_px and gap < breuel_multiplier * g_long:
+                continue
+            x0 = max(0, min(W, xL))
+            x1 = max(0, min(W, xR))
+            if x1 <= x0:
+                continue
+            # Ignore tiny slivers touching extreme edges in the accumulator (not a margin reject!)
+            if x0 < margin_px or x1 > (W - margin_px):
+                continue
+            acc[x0:x1] += 1.0
+
+    acc_s = _smooth_1d(acc, max(1, edge_peak_neighborhood_px))
+    peak = float(acc_s.max()) if acc_s.size else 0.0
+
+    if peak <= 0.0:
+        # No candidate evidence -> no gutters
+        ctx["gutters"] = []
+        ctx["columns"] = [Column(0, W, 0.0)]
+        ctx["debugGutters"] = {"note": "no peaks", "acc_peak": 0.0}
+        # Still emit debug rails (margins only) if requested
+        if cfg.get("outputs", {}).get("save_debug_images", False):
+            in_png = str(page.get("path", ""))
+            if in_png:
+                out_dir = Path(cfg["outputs"]["out_dir"])
+                out_dir.mkdir(parents=True, exist_ok=True)
+                stem = Path(in_png).stem
+                out_png = str(out_dir / f"{stem}_R1_rails.png")
+                _draw_debug_rails_png_black_bbox(
+                    in_png, out_png, ccs=ccs, gutters=[], columns=[Column(0, W, 1.0)]
+                )
+                ctx["debugRailsPng"] = out_png
+        return
+
+    # ------------------------------------------------------------
+    # 2) Candidate bands = runs above fraction-of-peak (evidence)
+    # ------------------------------------------------------------
+    peak_frac = float(gcfg.get("peak_frac", 0.30))
+    above = acc_s >= (peak_frac * peak)
+    runs = _runs_from_bool(above)
+
+    # Expand around local maxima (keeps candidates fat enough)
+    expand_frac = float(gcfg.get("expand_frac", 0.55))
+    candidate_bands: List[Tuple[int, int]] = []
+    for (a0, a1) in runs:
+        L, R = _expand_run_to_local_threshold(acc_s, a0, a1, frac=expand_frac)
+        if (R - L) >= 2:
+            candidate_bands.append((int(L), int(R)))
+
+    # ------------------------------------------------------------
+    # 3) Accept candidates using LEFT-RAIL ANCHOR + ENVELOPE
+    # ------------------------------------------------------------
+    gutters_out: List[GutterBand] = []
+    reject_log: List[Dict[str, Any]] = []
+
+    # Helper to compute crossings for a corridor
+    def corridor_cross_rate(x0: int, x1: int) -> float:
+        cross_total = 0
+        strip_count = 0
+        for band in line_bands:
+            y0 = int(band.y_top)
+            y1 = int(band.y_bot)
+            strip_count += 1
+            sc = _strip_ccs(ccs, y0, y1)
+            if not sc:
+                continue
+            cross_total += sum(1 for cc in sc if _cc_intersects_xband(cc, x0, x1))
+        return (cross_total / float(strip_count)) if strip_count else 1e9
+
+    # Main accept loop
+    for (x0, x1) in candidate_bands:
+        anchor_samples: List[float] = []     # straight LEFT rail samples (x of right-CC left edge)
+        env_samples: List[float] = []        # ragged boundary samples (x of left-CC right edge)
+        strip_count = 0
+
+        for band in line_bands:
+            y0 = int(band.y_top)
+            y1 = int(band.y_bot)
+            strip_count += 1
+            sc = _strip_ccs(ccs, y0, y1)
+            if len(sc) < 2:
+                continue
+            sc = sorted(sc, key=lambda c: (c.bbox[1], bbox_right(c.bbox)))
+
+            # Choose the best local gap that overlaps the candidate evidence band,
+            # then treat the RIGHT CC left edge as the anchor candidate.
+            best = None
+            for i in range(len(sc) - 1):
+                L = sc[i]
+                R = sc[i + 1]
+                span0 = int(bbox_right(L.bbox))
+                span1 = int(R.bbox[1])
+                if span1 <= span0:
+                    continue
+                ov0 = max(span0, x0)
+                ov1 = min(span1, x1)
+                if ov1 <= ov0:
+                    continue
+                overlap_w = ov1 - ov0
+                if (best is None) or (overlap_w > best["overlap_w"]):
+                    best = {
+                        "overlap_w": overlap_w,
+                        "anchor": float(span1),      # straight left rail sample (right CC left edge)
+                        "env": float(span0),         # opposing boundary sample (left CC right edge)
+                        "gap_w": float(span1 - span0)
+                    }
+
+            if best is not None and best["gap_w"] >= min_width_px:
+                anchor_samples.append(best["anchor"])
+                env_samples.append(best["env"])
+
+        if strip_count == 0:
+            continue
+
+        support_ratio = len(anchor_samples) / float(strip_count)
+
+        # C1 persistence (enough strips vote)
+        if support_ratio < support_ratio_min:
+            reject_log.append({"x0": x0, "x1": x1, "reject": "C1_persistence", "support_ratio": support_ratio})
+            continue
+
+        # Anchor straightness: rail must be straight (low std)
+        a_std = float(np.std(np.asarray(anchor_samples, dtype=np.float32))) if anchor_samples else 1e9
+        if a_std > anchor_std_max:
+            reject_log.append({"x0": x0, "x1": x1, "reject": "A_anchor_not_straight", "anchor_std": a_std})
+            continue
+
+        # Compute final anchor and envelope rails
+        anchor = float(np.median(np.asarray(anchor_samples, dtype=np.float32)))
+        env = float(np.percentile(np.asarray(env_samples, dtype=np.float32), env_q)) if env_samples else (anchor - min_width_px)
+
+        width = anchor - env
+
+        if width < min_width_px:
+            reject_log.append({"x0": x0, "x1": x1, "reject": "W_width_too_small", "width": width})
+            continue
+
+        # C2 low crossings: measure crossings on the FINAL corridor [env, anchor)
+        xL = int(max(0, min(W, round(env))))
+        xR = int(max(0, min(W, round(anchor))))
+        if xR <= xL:
+            reject_log.append({"x0": x0, "x1": x1, "reject": "W_bad_corridor_order"})
+            continue
+
+        cross_rate = corridor_cross_rate(xL, xR)
+        if cross_rate > cross_rate_max:
+            reject_log.append({"x0": x0, "x1": x1, "reject": "C2_cross_rate", "cross_rate": cross_rate})
+            continue
+
+        # Accept: store as GutterBand using the corridor boundaries (envelope, anchor)
+        gutters_out.append(GutterBand(
+            x0=int(xL),
+            x1=int(xR),
+            support_ratio=float(support_ratio),
+            cross_rate=float(cross_rate),
+            two_rail_ok=True,                 # in the *new* model, this is always true once accepted
+            width_iqr=float(iqr([width])),    # keep field but store something deterministic
+        ))
+
+    # Sort and derive columns
+    gutters_out = sorted(gutters_out, key=lambda g: (g.x0, g.x1))
+    columns = _derive_columns_from_gutters(W, gutters_out)
+
+    ctx["gutters"] = gutters_out
+    ctx["columns"] = columns
+    ctx["debugGutters"] = {
+        "acc_peak": peak,
+        "candidate_bands": candidate_bands,
+        "rejections": reject_log,
+        "support_ratio_min": support_ratio_min,
+        "cross_rate_max": cross_rate_max,
+        "min_width_px": min_width_px,
+        "anchor_std_max": anchor_std_max,
+        "envelope_quantile": env_q,
+        "peak_frac": peak_frac,
+        "expand_frac": expand_frac,
+    }
+
+    # ------------------------------------------------------------
+    # Debug image: bbox-only CCs + THIN BLACK rails
+    # ------------------------------------------------------------
+    if cfg.get("outputs", {}).get("save_debug_images", False):
+        in_png = str(page.get("path", ""))
+        if in_png:
+            out_dir = Path(cfg["outputs"]["out_dir"])
+            out_dir.mkdir(parents=True, exist_ok=True)
+            stem = Path(in_png).stem
+            out_png = str(out_dir / f"{stem}_R1_rails.png")
+            _draw_debug_rails_png_black_bbox(
+                in_png, out_png, ccs=ccs, gutters=gutters_out, columns=columns
+            )
+            ctx["debugRailsPng"] = out_png
 
 
-def assign_lines_to_columns(ctx: Context, cfg: Dict[str, Any]) -> None:
+def _draw_debug_rails_png_black_bbox(
+    png_in_path: str,
+    png_out_path: str,
+    *,
+    ccs: List[CC],
+    gutters: List[GutterBand],
+    columns: List[Column],
+) -> str:
     """
-    R2: AssignLinesToColumns
-
-    Assign each validated line band to a column by horizontal overlap / proximity to L/R rails.
-    This tightens both:
-      - column confidence
-      - line-local column membership (used by downstream passes)
+    Debug artifact rules (Wayne request):
+      - CCs shown as bounding boxes only (no glyph pixels, no fills)
+      - rails thin BLACK lines
+      - no inline gaps
     """
-    # Placeholder: depends on ctx["columns"] + ctx["lineBands"]
-    ctx["lineColumnIds"] = []
+    img = cv2.imread(png_in_path, cv2.IMREAD_COLOR)
+    if img is None:
+        raise FileNotFoundError(f"Could not read: {png_in_path}")
+    H, W = img.shape[:2]
 
+    # Draw CC bounding boxes (thin gray)
+    for cc in ccs:
+        t, l, h, w = cc.bbox
+        x0 = max(0, min(W - 1, int(l)))
+        y0 = max(0, min(H - 1, int(t)))
+        x1 = max(0, min(W - 1, int(l + w)))
+        y1 = max(0, min(H - 1, int(t + h)))
+        cv2.rectangle(img, (x0, y0), (x1, y1), (160, 160, 160), 1)
+
+    # Draw gutter rails (thin black)
+    for g in gutters:
+        x0 = max(0, min(W - 1, int(g.x0)))
+        x1 = max(0, min(W - 1, int(g.x1)))
+        cv2.line(img, (x0, 0), (x0, H - 1), (0, 0, 0), 1)
+        cv2.line(img, (x1, 0), (x1, H - 1), (0, 0, 0), 1)
+
+    # Optional: column boundaries (thin black). Helpful to verify complement logic.
+    for c in columns:
+        x0 = max(0, min(W - 1, int(c.x0)))
+        x1 = max(0, min(W - 1, int(c.x1)))
+        cv2.line(img, (x0, 0), (x0, H - 1), (0, 0, 0), 1)
+        cv2.line(img, (x1, 0), (x1, H - 1), (0, 0, 0), 1)
+
+    cv2.imwrite(png_out_path, img)
+    return png_out_path
 
 # -----------------------------
 # Placeholders for later phases
 # -----------------------------
+
+def assign_lines_to_columns(ctx: Context, cfg: Dict[str, Any]) -> None:
+    """
+    R2: AssignLinesToColumns
+    Placeholder so Runner can proceed.
+    Real implementation will attach each line band / line candidate to a column.
+    """
+    return
+
 
 def glyph_clustering(ctx: Context, cfg: Dict[str, Any]) -> None:
     raise NotImplementedError()
