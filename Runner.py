@@ -16,6 +16,8 @@ import sys
 from pathlib import Path
 from typing import Any, Dict
 
+import dataclasses
+
 import yaml
 
 import Functions  # local file
@@ -76,6 +78,8 @@ def _jsonable(x: Any) -> Any:
         return {k: _jsonable(v) for k, v in x.items()}
     if isinstance(x, (list, tuple)):
         return [_jsonable(v) for v in x]
+    if dataclasses.is_dataclass(x):
+        return _jsonable(dataclasses.asdict(x))
     if hasattr(x, "__dict__"):
         return _jsonable(vars(x))
     return str(x)

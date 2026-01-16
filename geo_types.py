@@ -169,6 +169,11 @@ class CC:
     cc_id: int
     bbox: BBox
     ink_px: int
+    # Both centers are first-class geometry.
+    # - box_center_yx: bbox midpoint (pure geometry)
+    # - ink_center_yx: centroid of ink pixels (mass-weighted)
+    box_center_yx: Tuple[float, float]
+    ink_center_yx: Tuple[float, float]
     kind: CCKind = CCKind.UNKNOWN
     parent: Optional[int] = None  # optional grouping later (blocks/lines)
 
@@ -176,4 +181,8 @@ class CC:
         assert isinstance(self.cc_id, int) and self.cc_id >= 0, "cc_id must be a nonnegative int"
         assert_bbox(self.bbox)
         assert isinstance(self.ink_px, int) and self.ink_px >= 0, "ink_px must be a nonnegative int"
+        by, bx = self.box_center_yx
+        iy, ix = self.ink_center_yx
+        assert isinstance(by, (int, float)) and isinstance(bx, (int, float)), "box_center_yx must be (float,float)"
+        assert isinstance(iy, (int, float)) and isinstance(ix, (int, float)), "ink_center_yx must be (float,float)"
         # kind validated by Enum

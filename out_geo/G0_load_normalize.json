@@ -20,7 +20,8 @@
       "out_dir": "out_geo",
       "save_debug_images": true,
       "save_json": true,
-      "debug_upscale": 2
+      "debug_upscale": 2,
+      "debug_draw_cc_box_centers": true
     },
     "params": {
       "cc": {
@@ -72,51 +73,6 @@
         "name": "G2c_debug_cc_boxes",
         "fn": "debug_render_cc_boxes",
         "enabled": true
-      },
-      {
-        "name": "R0_find_rails_and_lines",
-        "fn": "find_rails_and_lines",
-        "enabled": true
-      },
-      {
-        "name": "R1_find_columns_from_lrails",
-        "fn": "find_columns_from_lrails",
-        "enabled": true
-      },
-      {
-        "name": "R2_assign_lines_to_columns",
-        "fn": "assign_lines_to_columns",
-        "enabled": true
-      },
-      {
-        "name": "G6_glyph_clustering",
-        "fn": "glyph_clustering",
-        "enabled": false
-      },
-      {
-        "name": "G7_gap_tokens_and_islands",
-        "fn": "gap_tokens_and_islands",
-        "enabled": false
-      },
-      {
-        "name": "G8_mer_detection",
-        "fn": "mer_detection",
-        "enabled": false
-      },
-      {
-        "name": "G9_tmi_detection",
-        "fn": "tmi_detection",
-        "enabled": false
-      },
-      {
-        "name": "G10_block_detection",
-        "fn": "block_detection",
-        "enabled": false
-      },
-      {
-        "name": "G11_build_geo_cil",
-        "fn": "build_geo_cil",
-        "enabled": false
       }
     ]
   },
