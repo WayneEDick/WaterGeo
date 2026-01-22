@@ -155,9 +155,18 @@ def normalize_to_mask01(arr: np.ndarray) -> Mask:
 
 class CCKind(str, Enum):
     UNKNOWN = "unknown"
+    # ---- Legacy coarse labels (kept for backward compatibility) ----
     TEXT_LIKE = "text_like"
     IMAGE_LIKE = "image_like"
     RULE_LIKE = "rule_like"   # thin strokes (rules), not letters
+
+    # ---- G3 classes (pixel-domain CC box predicates) ----
+    CHAR_LIKE = "char_like"
+    H_INK_BAND = "hInkBand"
+    V_INK_BAND = "vInkBand"
+    VERT_MARK = "vert_mark"
+    DASH_MARK = "dash_mark"
+    SPECK = "speck"
 
 
 @dataclass(frozen=True, slots=True)

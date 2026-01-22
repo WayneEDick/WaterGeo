@@ -17,10 +17,21 @@ outputs:
   save_json: true
   debug_upscale: 2
   debug_draw_cc_box_centers: true
+  # Boxes-only view (blank background) is easiest to audit at G3.
+  #  - 1.0 = solid filled rectangles
+  #  - 0.3 = light fill
+  #  - 0.0 = outlines only
+  g3_boxes_only_fill_alpha: 1.0
 params:
   cc:
-    connectivity: 8
-    min_area_px: 3
+    connectivity: 4
+    min_area_px: 1
+  g3:
+    # Empirical pixel thresholds from G3_4.docx
+    MaxChW: 95
+    MaxChH: 85
+    minChW: 4
+    minChH: 11
   rails:
     eps_frac_min: 0.06
     eps_frac_max: 0.12
@@ -52,4 +63,16 @@ steps:
   enabled: true
 - name: G2c_debug_cc_boxes
   fn: debug_render_cc_boxes
+  enabled: true
+
+- name: G3_classify_ccs
+  fn: classify_ccs_g3
+  enabled: true
+
+- name: G3b_debug_g3_boxes
+  fn: debug_render_g3_boxes
+  enabled: true
+
+- name: G3c_debug_g3_boxes_only
+  fn: debug_render_g3_boxes_only
   enabled: true
