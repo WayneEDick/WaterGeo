@@ -24,7 +24,7 @@ outputs:
   g3_boxes_only_fill_alpha: 1.0
 params:
   cc:
-    connectivity: 4
+    connectivity: 8
     min_area_px: 1
   g3:
     # Empirical pixel thresholds from G3_4.docx
