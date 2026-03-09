@@ -1,0 +1,1599 @@
+g5a_report:
+  stem: "input"
+  xh_d: 14
+  params:
+    tall_mult: 2.8
+    thin_mult: 0.35
+    wide_mult: 3
+    flat_mult: 0.25
+    near_sq_min: 0.9
+    near_sq_max: 1.1
+  counts:
+    by_kind:
+      FLOATER_BLOB_TOKEN: 4
+      H_RUN: 54
+      WD_SPACE: 25
+      WIDE_SPACE: 22
+    by_role:
+      Space: 47
+      TextRun: 54
+      Unknown: 4
+    floaters:
+      inline: 1
+      block: 3
+  tokens:
+    - idx: 1
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 8
+      bbox:
+        l: 62
+        t: 68
+        r: 185
+        b: 88
+        w: 123
+        h: 20
+      members_count: 8
+    - idx: 2
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 4
+      bbox:
+        l: 203
+        t: 68
+        r: 264
+        b: 88
+        w: 61
+        h: 20
+      members_count: 4
+    - idx: 3
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 6
+      bbox:
+        l: 443
+        t: 68
+        r: 534
+        b: 88
+        w: 91
+        h: 20
+      members_count: 6
+    - idx: 4
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 5
+      bbox:
+        l: 568
+        t: 68
+        r: 645
+        b: 88
+        w: 77
+        h: 20
+      members_count: 5
+    - idx: 5
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 185
+        t: 69
+        r: 203
+        b: 88
+        w: 18
+        h: 19
+      members_count: 0
+    - idx: 6
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 6
+      bbox:
+        l: 284
+        t: 69
+        r: 375
+        b: 88
+        w: 91
+        h: 19
+      members_count: 6
+    - idx: 7
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 264
+        t: 74
+        r: 284
+        b: 88
+        w: 20
+        h: 14
+      members_count: 0
+    - idx: 8
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 267
+        t: 74
+        r: 281
+        b: 94
+        w: 14
+        h: 20
+      members_count: 1
+    - idx: 9
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 281
+        t: 74
+        r: 537
+        b: 94
+        w: 256
+        h: 20
+      members_count: 0
+    - idx: 10
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 375
+        t: 74
+        r: 395
+        b: 88
+        w: 20
+        h: 14
+      members_count: 0
+    - idx: 11
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 395
+        t: 74
+        r: 423
+        b: 88
+        w: 28
+        h: 14
+      members_count: 2
+    - idx: 12
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 423
+        t: 74
+        r: 443
+        b: 88
+        w: 20
+        h: 14
+      members_count: 0
+    - idx: 13
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 534
+        t: 74
+        r: 568
+        b: 88
+        w: 34
+        h: 14
+      members_count: 0
+    - idx: 14
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 537
+        t: 74
+        r: 550
+        b: 94
+        w: 13
+        h: 20
+      members_count: 1
+    - idx: 15
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 550
+        t: 74
+        r: 652
+        b: 94
+        w: 102
+        h: 20
+      members_count: 0
+    - idx: 16
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 645
+        t: 74
+        r: 652
+        b: 88
+        w: 7
+        h: 14
+      members_count: 0
+    - idx: 17
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 652
+        t: 74
+        r: 657
+        b: 78
+        w: 5
+        h: 4
+      members_count: 1
+    - idx: 18
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 652
+        t: 84
+        r: 657
+        b: 88
+        w: 5
+        h: 4
+      members_count: 1
+    - idx: 19
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 3
+      bbox:
+        l: 62
+        t: 154
+        r: 106
+        b: 174
+        w: 44
+        h: 20
+      members_count: 3
+    - idx: 20
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 543
+        t: 236
+        r: 554
+        b: 246
+        w: 11
+        h: 10
+      members_count: 1
+    - idx: 21
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 554
+        t: 236
+        r: 591
+        b: 257
+        w: 37
+        h: 21
+      members_count: 0
+    - idx: 22
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 591
+        t: 238
+        r: 602
+        b: 257
+        w: 11
+        h: 19
+      members_count: 1
+    - idx: 23
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 521
+        t: 240
+        r: 540
+        b: 302
+        w: 19
+        h: 62
+      members_count: 1
+    - idx: 24
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 540
+        t: 240
+        r: 562
+        b: 302
+        w: 22
+        h: 62
+      members_count: 0
+    - idx: 25
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: true
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 562
+        t: 240
+        r: 581
+        b: 302
+        w: 19
+        h: 62
+      members_count: 1
+    - idx: 26
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 581
+        t: 240
+        r: 589
+        b: 302
+        w: 8
+        h: 62
+      members_count: 0
+    - idx: 27
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 3
+      bbox:
+        l: 589
+        t: 259
+        r: 637
+        b: 279
+        w: 48
+        h: 20
+      members_count: 3
+    - idx: 28
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 592
+        t: 280
+        r: 601
+        b: 298
+        w: 9
+        h: 18
+      members_count: 1
+    - idx: 29
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 535
+        t: 293
+        r: 543
+        b: 306
+        w: 8
+        h: 13
+      members_count: 1
+    - idx: 30
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 109
+        t: 365
+        r: 121
+        b: 385
+        w: 12
+        h: 20
+      members_count: 1
+    - idx: 31
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 121
+        t: 365
+        r: 220
+        b: 385
+        w: 99
+        h: 20
+      members_count: 0
+    - idx: 32
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 220
+        t: 365
+        r: 232
+        b: 385
+        w: 12
+        h: 20
+      members_count: 1
+    - idx: 33
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 3
+      bbox:
+        l: 63
+        t: 371
+        r: 105
+        b: 385
+        w: 42
+        h: 14
+      members_count: 3
+    - idx: 34
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 105
+        t: 371
+        r: 126
+        b: 385
+        w: 21
+        h: 14
+      members_count: 0
+    - idx: 35
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 3
+      bbox:
+        l: 126
+        t: 371
+        r: 170
+        b: 391
+        w: 44
+        h: 20
+      members_count: 3
+    - idx: 36
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 170
+        t: 371
+        r: 188
+        b: 391
+        w: 18
+        h: 20
+      members_count: 0
+    - idx: 37
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 188
+        t: 371
+        r: 217
+        b: 385
+        w: 29
+        h: 14
+      members_count: 2
+    - idx: 38
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 217
+        t: 371
+        r: 236
+        b: 385
+        w: 19
+        h: 14
+      members_count: 0
+    - idx: 39
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 236
+        t: 371
+        r: 265
+        b: 385
+        w: 29
+        h: 14
+      members_count: 2
+    - idx: 40
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 106
+        t: 451
+        r: 173
+        b: 471
+        w: 67
+        h: 20
+      members_count: 0
+    - idx: 41
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 173
+        t: 451
+        r: 185
+        b: 471
+        w: 12
+        h: 20
+      members_count: 1
+    - idx: 42
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 185
+        t: 451
+        r: 205
+        b: 471
+        w: 20
+        h: 20
+      members_count: 0
+    - idx: 43
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 233
+        t: 451
+        r: 272
+        b: 471
+        w: 39
+        h: 20
+      members_count: 0
+    - idx: 44
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 272
+        t: 451
+        r: 276
+        b: 458
+        w: 4
+        h: 7
+      members_count: 1
+    - idx: 45
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 276
+        t: 451
+        r: 284
+        b: 471
+        w: 8
+        h: 20
+      members_count: 0
+    - idx: 46
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 296
+        t: 451
+        r: 304
+        b: 471
+        w: 8
+        h: 20
+      members_count: 0
+    - idx: 47
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 304
+        t: 451
+        r: 307
+        b: 458
+        w: 3
+        h: 7
+      members_count: 1
+    - idx: 48
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 307
+        t: 451
+        r: 337
+        b: 462
+        w: 30
+        h: 11
+      members_count: 0
+    - idx: 49
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 444
+        t: 451
+        r: 484
+        b: 471
+        w: 40
+        h: 20
+      members_count: 0
+    - idx: 50
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 484
+        t: 451
+        r: 487
+        b: 458
+        w: 3
+        h: 7
+      members_count: 1
+    - idx: 51
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 487
+        t: 451
+        r: 495
+        b: 471
+        w: 8
+        h: 20
+      members_count: 0
+    - idx: 52
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 508
+        t: 451
+        r: 516
+        b: 471
+        w: 8
+        h: 20
+      members_count: 0
+    - idx: 53
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 516
+        t: 451
+        r: 519
+        b: 458
+        w: 3
+        h: 7
+      members_count: 1
+    - idx: 54
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 519
+        t: 451
+        r: 537
+        b: 462
+        w: 18
+        h: 11
+      members_count: 0
+    - idx: 55
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 565
+        t: 451
+        r: 600
+        b: 471
+        w: 35
+        h: 20
+      members_count: 0
+    - idx: 56
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 600
+        t: 451
+        r: 614
+        b: 471
+        w: 14
+        h: 20
+      members_count: 1
+    - idx: 57
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 614
+        t: 451
+        r: 680
+        b: 471
+        w: 66
+        h: 20
+      members_count: 0
+    - idx: 58
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 680
+        t: 451
+        r: 693
+        b: 471
+        w: 13
+        h: 20
+      members_count: 1
+    - idx: 59
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 693
+        t: 451
+        r: 728
+        b: 471
+        w: 35
+        h: 20
+      members_count: 0
+    - idx: 60
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 757
+        t: 451
+        r: 796
+        b: 471
+        w: 39
+        h: 20
+      members_count: 0
+    - idx: 61
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 796
+        t: 451
+        r: 799
+        b: 458
+        w: 3
+        h: 7
+      members_count: 1
+    - idx: 62
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 799
+        t: 451
+        r: 806
+        b: 471
+        w: 7
+        h: 20
+      members_count: 0
+    - idx: 63
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 806
+        t: 451
+        r: 835
+        b: 471
+        w: 29
+        h: 20
+      members_count: 2
+    - idx: 64
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 835
+        t: 451
+        r: 843
+        b: 471
+        w: 8
+        h: 20
+      members_count: 0
+    - idx: 65
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 843
+        t: 451
+        r: 846
+        b: 458
+        w: 3
+        h: 7
+      members_count: 1
+    - idx: 66
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 846
+        t: 451
+        r: 855
+        b: 462
+        w: 9
+        h: 11
+      members_count: 0
+    - idx: 67
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 93
+        t: 452
+        r: 106
+        b: 471
+        w: 13
+        h: 19
+      members_count: 1
+    - idx: 68
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 205
+        t: 452
+        r: 233
+        b: 471
+        w: 28
+        h: 19
+      members_count: 2
+    - idx: 69
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 284
+        t: 452
+        r: 296
+        b: 471
+        w: 12
+        h: 19
+      members_count: 1
+    - idx: 70
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 337
+        t: 452
+        r: 365
+        b: 471
+        w: 28
+        h: 19
+      members_count: 2
+    - idx: 71
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 365
+        t: 452
+        r: 416
+        b: 471
+        w: 51
+        h: 19
+      members_count: 0
+    - idx: 72
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 416
+        t: 452
+        r: 444
+        b: 471
+        w: 28
+        h: 19
+      members_count: 2
+    - idx: 73
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 495
+        t: 452
+        r: 508
+        b: 471
+        w: 13
+        h: 19
+      members_count: 1
+    - idx: 74
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 537
+        t: 452
+        r: 565
+        b: 471
+        w: 28
+        h: 19
+      members_count: 2
+    - idx: 75
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 728
+        t: 452
+        r: 757
+        b: 471
+        w: 29
+        h: 19
+      members_count: 2
+    - idx: 76
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 855
+        t: 452
+        r: 883
+        b: 471
+        w: 28
+        h: 19
+      members_count: 2
+    - idx: 77
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 62
+        t: 457
+        r: 90
+        b: 471
+        w: 28
+        h: 14
+      members_count: 2
+    - idx: 78
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 90
+        t: 457
+        r: 109
+        b: 471
+        w: 19
+        h: 14
+      members_count: 0
+    - idx: 79
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 4
+      bbox:
+        l: 109
+        t: 457
+        r: 169
+        b: 477
+        w: 60
+        h: 20
+      members_count: 4
+    - idx: 80
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 169
+        t: 457
+        r: 205
+        b: 471
+        w: 36
+        h: 14
+      members_count: 0
+    - idx: 81
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 377
+        t: 457
+        r: 400
+        b: 476
+        w: 23
+        h: 19
+      members_count: 0
+    - idx: 82
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 400
+        t: 457
+        r: 428
+        b: 471
+        w: 28
+        h: 14
+      members_count: 2
+    - idx: 83
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 578
+        t: 457
+        r: 617
+        b: 476
+        w: 39
+        h: 19
+      members_count: 0
+    - idx: 84
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 3
+      bbox:
+        l: 617
+        t: 457
+        r: 660
+        b: 471
+        w: 43
+        h: 14
+      members_count: 3
+    - idx: 85
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 660
+        t: 457
+        r: 696
+        b: 471
+        w: 36
+        h: 14
+      members_count: 0
+    - idx: 86
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 3
+      bbox:
+        l: 696
+        t: 457
+        r: 740
+        b: 471
+        w: 44
+        h: 14
+      members_count: 3
+    - idx: 87
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 245
+        t: 461
+        r: 315
+        b: 476
+        w: 70
+        h: 15
+      members_count: 0
+    - idx: 88
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 315
+        t: 461
+        r: 323
+        b: 473
+        w: 8
+        h: 12
+      members_count: 1
+    - idx: 89
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 323
+        t: 461
+        r: 337
+        b: 473
+        w: 14
+        h: 12
+      members_count: 0
+    - idx: 90
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 456
+        t: 461
+        r: 526
+        b: 476
+        w: 70
+        h: 15
+      members_count: 0
+    - idx: 91
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 526
+        t: 461
+        r: 550
+        b: 473
+        w: 24
+        h: 12
+      members_count: 2
+    - idx: 92
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 205
+        t: 465
+        r: 217
+        b: 467
+        w: 12
+        h: 2
+      members_count: 1
+    - idx: 93
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 217
+        t: 465
+        r: 238
+        b: 476
+        w: 21
+        h: 11
+      members_count: 0
+    - idx: 94
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 337
+        t: 465
+        r: 349
+        b: 467
+        w: 12
+        h: 2
+      members_count: 1
+    - idx: 95
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 349
+        t: 465
+        r: 370
+        b: 476
+        w: 21
+        h: 11
+      members_count: 0
+    - idx: 96
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 428
+        t: 465
+        r: 449
+        b: 476
+        w: 21
+        h: 11
+      members_count: 0
+    - idx: 97
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 550
+        t: 465
+        r: 570
+        b: 476
+        w: 20
+        h: 11
+      members_count: 0
+    - idx: 98
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 740
+        t: 465
+        r: 761
+        b: 476
+        w: 21
+        h: 11
+      members_count: 0
+    - idx: 99
+      kind: "WIDE_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 768
+        t: 465
+        r: 855
+        b: 476
+        w: 87
+        h: 11
+      members_count: 0
+    - idx: 100
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 855
+        t: 465
+        r: 867
+        b: 467
+        w: 12
+        h: 2
+      members_count: 1
+    - idx: 101
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 238
+        t: 467
+        r: 245
+        b: 476
+        w: 7
+        h: 9
+      members_count: 1
+    - idx: 102
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 370
+        t: 467
+        r: 377
+        b: 476
+        w: 7
+        h: 9
+      members_count: 1
+    - idx: 103
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 449
+        t: 467
+        r: 456
+        b: 476
+        w: 7
+        h: 9
+      members_count: 1
+    - idx: 104
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 570
+        t: 467
+        r: 578
+        b: 476
+        w: 8
+        h: 9
+      members_count: 1
+    - idx: 105
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 761
+        t: 467
+        r: 768
+        b: 476
+        w: 7
+        h: 9
+      members_count: 1

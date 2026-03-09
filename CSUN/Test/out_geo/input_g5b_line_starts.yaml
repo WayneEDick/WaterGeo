@@ -1,0 +1,133 @@
+g5b_line_starts:
+  - token_id: 1
+    src_id: 2
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 631
+      t: 60
+      r: 649
+      b: 64
+      w: 18
+      h: 4
+  - token_id: 7
+    src_id: 2
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 962
+      t: 60
+      r: 980
+      b: 64
+      w: 18
+      h: 4
+  - token_id: 3
+    src_id: 2
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 722
+      t: 62
+      r: 740
+      b: 66
+      w: 18
+      h: 4
+  - token_id: 5
+    src_id: 2
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 840
+      t: 62
+      r: 858
+      b: 66
+      w: 18
+      h: 4
+  - token_id: 9
+    src_id: 2
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 1053
+      t: 62
+      r: 1071
+      b: 66
+      w: 18
+      h: 4
+  - token_id: 11
+    src_id: 2
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 1174
+      t: 62
+      r: 1192
+      b: 66
+      w: 18
+      h: 4
+  - token_id: 12
+    src_id: 3
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 105
+      t: 68
+      r: 195
+      b: 92
+      w: 90
+      h: 24
+  - token_id: 90
+    src_id: 5
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 1211
+      t: 127
+      r: 1229
+      b: 131
+      w: 18
+      h: 4
+  - token_id: 91
+    src_id: 6
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 105
+      t: 135
+      r: 186
+      b: 167
+      w: 81
+      h: 32
+  - token_id: 159
+    src_id: 9
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 107
+      t: 209
+      r: 121
+      b: 224
+      w: 14
+      h: 15
+  - token_id: 212
+    src_id: 10
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 154
+      t: 217
+      r: 167
+      b: 236
+      w: 13
+      h: 19
+  - token_id: 215
+    src_id: 12
+    wall_id: "PAGE_LEFT"
+    reason: "no_predecessor_after_nearest_wall"
+    bbox:
+      l: 107
+      t: 266
+      r: 257
+      b: 291
+      w: 150
+      h: 25

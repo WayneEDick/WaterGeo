@@ -1,0 +1,2279 @@
+g5b_streams:
+  - src_id: 2
+    bbox:
+      l: 631
+      t: 60
+      r: 1192
+      b: 66
+      w: 561
+      h: 6
+    atom_count: 6
+    gap_count: 5
+    warnings: []
+    stream:
+      - idx: 1
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 631
+          t: 60
+          r: 649
+          b: 64
+          w: 18
+          h: 4
+      - idx: 2
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 649
+          t: 60
+          r: 722
+          b: 66
+          w: 73
+          h: 6
+      - idx: 3
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 722
+          t: 62
+          r: 740
+          b: 66
+          w: 18
+          h: 4
+      - idx: 4
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 740
+          t: 62
+          r: 840
+          b: 66
+          w: 100
+          h: 4
+      - idx: 5
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 840
+          t: 62
+          r: 858
+          b: 66
+          w: 18
+          h: 4
+      - idx: 6
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 858
+          t: 60
+          r: 962
+          b: 66
+          w: 104
+          h: 6
+      - idx: 7
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 962
+          t: 60
+          r: 980
+          b: 64
+          w: 18
+          h: 4
+      - idx: 8
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 980
+          t: 60
+          r: 1053
+          b: 66
+          w: 73
+          h: 6
+      - idx: 9
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1053
+          t: 62
+          r: 1071
+          b: 66
+          w: 18
+          h: 4
+      - idx: 10
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1071
+          t: 62
+          r: 1174
+          b: 66
+          w: 103
+          h: 4
+      - idx: 11
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1174
+          t: 62
+          r: 1192
+          b: 66
+          w: 18
+          h: 4
+  - src_id: 3
+    bbox:
+      l: 105
+      t: 63
+      r: 1566
+      b: 101
+      w: 1461
+      h: 38
+    atom_count: 23
+    gap_count: 22
+    warnings: []
+    stream:
+      - idx: 1
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 105
+          t: 68
+          r: 195
+          b: 92
+          w: 90
+          h: 24
+      - idx: 2
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 195
+          t: 69
+          r: 207
+          b: 98
+          w: 12
+          h: 29
+      - idx: 3
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 207
+          t: 66
+          r: 265
+          b: 101
+          w: 58
+          h: 35
+      - idx: 4
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 265
+          t: 66
+          r: 280
+          b: 101
+          w: 15
+          h: 35
+      - idx: 5
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 280
+          t: 79
+          r: 303
+          b: 87
+          w: 23
+          h: 8
+      - idx: 6
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 303
+          t: 66
+          r: 318
+          b: 101
+          w: 15
+          h: 35
+      - idx: 7
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 318
+          t: 66
+          r: 363
+          b: 101
+          w: 45
+          h: 35
+      - idx: 8
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 363
+          t: 66
+          r: 370
+          b: 101
+          w: 7
+          h: 35
+      - idx: 9
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 370
+          t: 66
+          r: 403
+          b: 101
+          w: 33
+          h: 35
+      - idx: 10
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 403
+          t: 66
+          r: 480
+          b: 101
+          w: 77
+          h: 35
+      - idx: 11
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 480
+          t: 70
+          r: 515
+          b: 101
+          w: 35
+          h: 31
+      - idx: 12
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 515
+          t: 66
+          r: 532
+          b: 101
+          w: 17
+          h: 35
+      - idx: 13
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 532
+          t: 66
+          r: 565
+          b: 101
+          w: 33
+          h: 35
+      - idx: 14
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 565
+          t: 66
+          r: 572
+          b: 101
+          w: 7
+          h: 35
+      - idx: 15
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 572
+          t: 63
+          r: 606
+          b: 101
+          w: 34
+          h: 38
+      - idx: 16
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 606
+          t: 63
+          r: 627
+          b: 98
+          w: 21
+          h: 35
+      - idx: 17
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 627
+          t: 69
+          r: 648
+          b: 98
+          w: 21
+          h: 29
+      - idx: 18
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 648
+          t: 69
+          r: 670
+          b: 98
+          w: 22
+          h: 29
+      - idx: 19
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 670
+          t: 79
+          r: 693
+          b: 87
+          w: 23
+          h: 8
+      - idx: 20
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 693
+          t: 66
+          r: 708
+          b: 101
+          w: 15
+          h: 35
+      - idx: 21
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 708
+          t: 66
+          r: 748
+          b: 101
+          w: 40
+          h: 35
+      - idx: 22
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 748
+          t: 70
+          r: 839
+          b: 101
+          w: 91
+          h: 31
+      - idx: 23
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 839
+          t: 70
+          r: 874
+          b: 101
+          w: 35
+          h: 31
+      - idx: 24
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 874
+          t: 66
+          r: 903
+          b: 101
+          w: 29
+          h: 35
+      - idx: 25
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 903
+          t: 63
+          r: 934
+          b: 101
+          w: 31
+          h: 38
+      - idx: 26
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 934
+          t: 63
+          r: 955
+          b: 98
+          w: 21
+          h: 35
+      - idx: 27
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 955
+          t: 69
+          r: 978
+          b: 98
+          w: 23
+          h: 29
+      - idx: 28
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 978
+          t: 69
+          r: 1000
+          b: 98
+          w: 22
+          h: 29
+      - idx: 29
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1000
+          t: 79
+          r: 1023
+          b: 87
+          w: 23
+          h: 8
+      - idx: 30
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1023
+          t: 66
+          r: 1038
+          b: 101
+          w: 15
+          h: 35
+      - idx: 31
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1038
+          t: 66
+          r: 1080
+          b: 101
+          w: 42
+          h: 35
+      - idx: 32
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1080
+          t: 71
+          r: 1171
+          b: 101
+          w: 91
+          h: 30
+      - idx: 33
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1171
+          t: 71
+          r: 1208
+          b: 101
+          w: 37
+          h: 30
+      - idx: 34
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1208
+          t: 66
+          r: 1238
+          b: 101
+          w: 30
+          h: 35
+      - idx: 35
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1238
+          t: 63
+          r: 1269
+          b: 101
+          w: 31
+          h: 38
+      - idx: 36
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1269
+          t: 63
+          r: 1289
+          b: 99
+          w: 20
+          h: 36
+      - idx: 37
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1289
+          t: 68
+          r: 1310
+          b: 99
+          w: 21
+          h: 31
+      - idx: 38
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1310
+          t: 68
+          r: 1320
+          b: 80
+          w: 10
+          h: 12
+      - idx: 39
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1320
+          t: 79
+          r: 1343
+          b: 87
+          w: 23
+          h: 8
+      - idx: 40
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1343
+          t: 76
+          r: 1355
+          b: 92
+          w: 12
+          h: 16
+      - idx: 41
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1355
+          t: 66
+          r: 1449
+          b: 101
+          w: 94
+          h: 35
+      - idx: 42
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1449
+          t: 66
+          r: 1470
+          b: 101
+          w: 21
+          h: 35
+      - idx: 43
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1470
+          t: 68
+          r: 1538
+          b: 92
+          w: 68
+          h: 24
+      - idx: 44
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1538
+          t: 68
+          r: 1547
+          b: 99
+          w: 9
+          h: 31
+      - idx: 45
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1547
+          t: 77
+          r: 1566
+          b: 99
+          w: 19
+          h: 22
+  - src_id: 4
+    bbox:
+      l: 408
+      t: 86
+      r: 1460
+      b: 107
+      w: 1052
+      h: 21
+    atom_count: 17
+    gap_count: 16
+    warnings: []
+    stream:
+      - idx: 1
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 408
+          t: 88
+          r: 414
+          b: 97
+          w: 6
+          h: 9
+      - idx: 2
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 414
+          t: 88
+          r: 466
+          b: 97
+          w: 52
+          h: 9
+      - idx: 3
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 466
+          t: 88
+          r: 472
+          b: 97
+          w: 6
+          h: 9
+      - idx: 4
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 472
+          t: 88
+          r: 515
+          b: 106
+          w: 43
+          h: 18
+      - idx: 5
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 515
+          t: 91
+          r: 525
+          b: 106
+          w: 10
+          h: 15
+      - idx: 6
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 525
+          t: 88
+          r: 610
+          b: 106
+          w: 85
+          h: 18
+      - idx: 7
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 610
+          t: 88
+          r: 616
+          b: 97
+          w: 6
+          h: 9
+      - idx: 8
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 616
+          t: 86
+          r: 650
+          b: 98
+          w: 34
+          h: 12
+      - idx: 9
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 650
+          t: 86
+          r: 655
+          b: 98
+          w: 5
+          h: 12
+      - idx: 10
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 655
+          t: 86
+          r: 758
+          b: 98
+          w: 103
+          h: 12
+      - idx: 11
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 758
+          t: 86
+          r: 773
+          b: 98
+          w: 15
+          h: 12
+      - idx: 12
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 773
+          t: 88
+          r: 824
+          b: 97
+          w: 51
+          h: 9
+      - idx: 13
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 824
+          t: 88
+          r: 830
+          b: 97
+          w: 6
+          h: 9
+      - idx: 14
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 830
+          t: 88
+          r: 874
+          b: 107
+          w: 44
+          h: 19
+      - idx: 15
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 874
+          t: 92
+          r: 884
+          b: 107
+          w: 10
+          h: 15
+      - idx: 16
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 884
+          t: 86
+          r: 893
+          b: 107
+          w: 9
+          h: 21
+      - idx: 17
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 893
+          t: 86
+          r: 898
+          b: 98
+          w: 5
+          h: 12
+      - idx: 18
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 898
+          t: 86
+          r: 938
+          b: 98
+          w: 40
+          h: 12
+      - idx: 19
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 938
+          t: 88
+          r: 944
+          b: 97
+          w: 6
+          h: 9
+      - idx: 20
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 944
+          t: 86
+          r: 980
+          b: 98
+          w: 36
+          h: 12
+      - idx: 21
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 980
+          t: 86
+          r: 985
+          b: 98
+          w: 5
+          h: 12
+      - idx: 22
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 985
+          t: 86
+          r: 1090
+          b: 98
+          w: 105
+          h: 12
+      - idx: 23
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1090
+          t: 86
+          r: 1105
+          b: 98
+          w: 15
+          h: 12
+      - idx: 24
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1105
+          t: 88
+          r: 1156
+          b: 97
+          w: 51
+          h: 9
+      - idx: 25
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1156
+          t: 88
+          r: 1162
+          b: 97
+          w: 6
+          h: 9
+      - idx: 26
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1162
+          t: 88
+          r: 1209
+          b: 102
+          w: 47
+          h: 14
+      - idx: 27
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1209
+          t: 92
+          r: 1218
+          b: 102
+          w: 9
+          h: 10
+      - idx: 28
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1218
+          t: 86
+          r: 1227
+          b: 102
+          w: 9
+          h: 16
+      - idx: 29
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1227
+          t: 86
+          r: 1232
+          b: 98
+          w: 5
+          h: 12
+      - idx: 30
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1232
+          t: 86
+          r: 1273
+          b: 98
+          w: 41
+          h: 12
+      - idx: 31
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1273
+          t: 88
+          r: 1279
+          b: 97
+          w: 6
+          h: 9
+      - idx: 32
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1279
+          t: 88
+          r: 1454
+          b: 97
+          w: 175
+          h: 9
+      - idx: 33
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1454
+          t: 88
+          r: 1460
+          b: 97
+          w: 6
+          h: 9
+  - src_id: 5
+    bbox:
+      l: 1211
+      t: 127
+      r: 1229
+      b: 131
+      w: 18
+      h: 4
+    atom_count: 1
+    gap_count: 0
+    warnings: []
+    stream:
+      - idx: 1
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1211
+          t: 127
+          r: 1229
+          b: 131
+          w: 18
+          h: 4
+  - src_id: 6
+    bbox:
+      l: 105
+      t: 129
+      r: 1566
+      b: 167
+      w: 1461
+      h: 38
+    atom_count: 25
+    gap_count: 24
+    warnings: []
+    stream:
+      - idx: 1
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 105
+          t: 135
+          r: 186
+          b: 167
+          w: 81
+          h: 32
+      - idx: 2
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 186
+          t: 142
+          r: 195
+          b: 167
+          w: 9
+          h: 25
+      - idx: 3
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 195
+          t: 143
+          r: 209
+          b: 158
+          w: 14
+          h: 15
+      - idx: 4
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 209
+          t: 134
+          r: 219
+          b: 158
+          w: 10
+          h: 24
+      - idx: 5
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 219
+          t: 134
+          r: 242
+          b: 158
+          w: 23
+          h: 24
+      - idx: 6
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 242
+          t: 134
+          r: 268
+          b: 158
+          w: 26
+          h: 24
+      - idx: 7
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 268
+          t: 141
+          r: 285
+          b: 158
+          w: 17
+          h: 17
+      - idx: 8
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 285
+          t: 134
+          r: 297
+          b: 158
+          w: 12
+          h: 24
+      - idx: 9
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 297
+          t: 134
+          r: 320
+          b: 158
+          w: 23
+          h: 24
+      - idx: 10
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 320
+          t: 134
+          r: 342
+          b: 158
+          w: 22
+          h: 24
+      - idx: 11
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 342
+          t: 137
+          r: 436
+          b: 158
+          w: 94
+          h: 21
+      - idx: 12
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 436
+          t: 142
+          r: 445
+          b: 158
+          w: 9
+          h: 16
+      - idx: 13
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 445
+          t: 134
+          r: 537
+          b: 158
+          w: 92
+          h: 24
+      - idx: 14
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 537
+          t: 137
+          r: 547
+          b: 158
+          w: 10
+          h: 21
+      - idx: 15
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 547
+          t: 134
+          r: 590
+          b: 158
+          w: 43
+          h: 24
+      - idx: 16
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 590
+          t: 132
+          r: 603
+          b: 167
+          w: 13
+          h: 35
+      - idx: 17
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 603
+          t: 132
+          r: 628
+          b: 167
+          w: 25
+          h: 35
+      - idx: 18
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 628
+          t: 134
+          r: 644
+          b: 158
+          w: 16
+          h: 24
+      - idx: 19
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 644
+          t: 129
+          r: 705
+          b: 167
+          w: 61
+          h: 38
+      - idx: 20
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 705
+          t: 129
+          r: 716
+          b: 158
+          w: 11
+          h: 29
+      - idx: 21
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 716
+          t: 134
+          r: 829
+          b: 158
+          w: 113
+          h: 24
+      - idx: 22
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 829
+          t: 137
+          r: 838
+          b: 158
+          w: 9
+          h: 21
+      - idx: 23
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 838
+          t: 142
+          r: 860
+          b: 158
+          w: 22
+          h: 16
+      - idx: 24
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 860
+          t: 142
+          r: 870
+          b: 167
+          w: 10
+          h: 25
+      - idx: 25
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 870
+          t: 142
+          r: 898
+          b: 167
+          w: 28
+          h: 25
+      - idx: 26
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 898
+          t: 134
+          r: 936
+          b: 165
+          w: 38
+          h: 31
+      - idx: 27
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 936
+          t: 134
+          r: 950
+          b: 158
+          w: 14
+          h: 24
+      - idx: 28
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 950
+          t: 134
+          r: 966
+          b: 158
+          w: 16
+          h: 24
+      - idx: 29
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 966
+          t: 142
+          r: 990
+          b: 158
+          w: 24
+          h: 16
+      - idx: 30
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 990
+          t: 140
+          r: 1004
+          b: 159
+          w: 14
+          h: 19
+      - idx: 31
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1004
+          t: 140
+          r: 1021
+          b: 159
+          w: 17
+          h: 19
+      - idx: 32
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1021
+          t: 132
+          r: 1037
+          b: 167
+          w: 16
+          h: 35
+      - idx: 33
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1037
+          t: 132
+          r: 1066
+          b: 167
+          w: 29
+          h: 35
+      - idx: 34
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1066
+          t: 134
+          r: 1140
+          b: 158
+          w: 74
+          h: 24
+      - idx: 35
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1140
+          t: 134
+          r: 1163
+          b: 158
+          w: 23
+          h: 24
+      - idx: 36
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1163
+          t: 132
+          r: 1180
+          b: 167
+          w: 17
+          h: 35
+      - idx: 37
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1180
+          t: 132
+          r: 1192
+          b: 167
+          w: 12
+          h: 35
+      - idx: 38
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1192
+          t: 132
+          r: 1213
+          b: 167
+          w: 21
+          h: 35
+      - idx: 39
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1213
+          t: 135
+          r: 1228
+          b: 158
+          w: 15
+          h: 23
+      - idx: 40
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1228
+          t: 135
+          r: 1240
+          b: 158
+          w: 12
+          h: 23
+      - idx: 41
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1240
+          t: 145
+          r: 1263
+          b: 153
+          w: 23
+          h: 8
+      - idx: 42
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1263
+          t: 142
+          r: 1275
+          b: 158
+          w: 12
+          h: 16
+      - idx: 43
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1275
+          t: 132
+          r: 1366
+          b: 167
+          w: 91
+          h: 35
+      - idx: 44
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1366
+          t: 132
+          r: 1386
+          b: 167
+          w: 20
+          h: 35
+      - idx: 45
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1386
+          t: 134
+          r: 1451
+          b: 158
+          w: 65
+          h: 24
+      - idx: 46
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1451
+          t: 134
+          r: 1462
+          b: 158
+          w: 11
+          h: 24
+      - idx: 47
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1462
+          t: 135
+          r: 1477
+          b: 158
+          w: 15
+          h: 23
+      - idx: 48
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1477
+          t: 135
+          r: 1485
+          b: 158
+          w: 8
+          h: 23
+      - idx: 49
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1485
+          t: 135
+          r: 1566
+          b: 167
+          w: 81
+          h: 32
+  - src_id: 7
+    bbox:
+      l: 242
+      t: 151
+      r: 1377
+      b: 170
+      w: 1135
+      h: 19
+    atom_count: 10
+    gap_count: 9
+    warnings: []
+    stream:
+      - idx: 1
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 242
+          t: 151
+          r: 255
+          b: 170
+          w: 13
+          h: 19
+      - idx: 2
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 255
+          t: 151
+          r: 319
+          b: 170
+          w: 64
+          h: 19
+      - idx: 3
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 319
+          t: 151
+          r: 332
+          b: 170
+          w: 13
+          h: 19
+      - idx: 4
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 332
+          t: 151
+          r: 630
+          b: 170
+          w: 298
+          h: 19
+      - idx: 5
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 630
+          t: 154
+          r: 636
+          b: 163
+          w: 6
+          h: 9
+      - idx: 6
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 636
+          t: 153
+          r: 900
+          b: 165
+          w: 264
+          h: 12
+      - idx: 7
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 900
+          t: 153
+          r: 927
+          b: 165
+          w: 27
+          h: 12
+      - idx: 8
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 927
+          t: 154
+          r: 952
+          b: 163
+          w: 25
+          h: 9
+      - idx: 9
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 952
+          t: 154
+          r: 958
+          b: 163
+          w: 6
+          h: 9
+      - idx: 10
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 958
+          t: 154
+          r: 1069
+          b: 163
+          w: 111
+          h: 9
+      - idx: 11
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1069
+          t: 154
+          r: 1075
+          b: 163
+          w: 6
+          h: 9
+      - idx: 12
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1075
+          t: 154
+          r: 1127
+          b: 163
+          w: 52
+          h: 9
+      - idx: 13
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1127
+          t: 154
+          r: 1133
+          b: 163
+          w: 6
+          h: 9
+      - idx: 14
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1133
+          t: 151
+          r: 1163
+          b: 170
+          w: 30
+          h: 19
+      - idx: 15
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1163
+          t: 151
+          r: 1176
+          b: 170
+          w: 13
+          h: 19
+      - idx: 16
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1176
+          t: 151
+          r: 1196
+          b: 170
+          w: 20
+          h: 19
+      - idx: 17
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1196
+          t: 154
+          r: 1202
+          b: 163
+          w: 6
+          h: 9
+      - idx: 18
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1202
+          t: 154
+          r: 1371
+          b: 163
+          w: 169
+          h: 9
+      - idx: 19
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1371
+          t: 154
+          r: 1377
+          b: 163
+          w: 6
+          h: 9
+  - src_id: 9
+    bbox:
+      l: 107
+      t: 195
+      r: 1565
+      b: 233
+      w: 1458
+      h: 38
+    atom_count: 27
+    gap_count: 26
+    warnings: []
+    stream:
+      - idx: 1
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 107
+          t: 209
+          r: 121
+          b: 224
+          w: 14
+          h: 15
+      - idx: 2
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 121
+          t: 200
+          r: 131
+          b: 224
+          w: 10
+          h: 24
+      - idx: 3
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 131
+          t: 200
+          r: 154
+          b: 224
+          w: 23
+          h: 24
+      - idx: 4
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 154
+          t: 200
+          r: 180
+          b: 224
+          w: 26
+          h: 24
+      - idx: 5
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 180
+          t: 207
+          r: 197
+          b: 224
+          w: 17
+          h: 17
+      - idx: 6
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 197
+          t: 200
+          r: 209
+          b: 224
+          w: 12
+          h: 24
+      - idx: 7
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 209
+          t: 200
+          r: 244
+          b: 229
+          w: 35
+          h: 29
+      - idx: 8
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 244
+          t: 208
+          r: 254
+          b: 229
+          w: 10
+          h: 21
+      - idx: 9
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 254
+          t: 203
+          r: 348
+          b: 224
+          w: 94
+          h: 21
+      - idx: 10
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 348
+          t: 208
+          r: 357
+          b: 224
+          w: 9
+          h: 16
+      - idx: 11
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 357
+          t: 200
+          r: 450
+          b: 224
+          w: 93
+          h: 24
+      - idx: 12
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 450
+          t: 198
+          r: 462
+          b: 233
+          w: 12
+          h: 35
+      - idx: 13
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 462
+          t: 198
+          r: 495
+          b: 233
+          w: 33
+          h: 35
+      - idx: 14
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 495
+          t: 200
+          r: 502
+          b: 229
+          w: 7
+          h: 29
+      - idx: 15
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 502
+          t: 195
+          r: 554
+          b: 233
+          w: 52
+          h: 38
+      - idx: 16
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 554
+          t: 195
+          r: 565
+          b: 224
+          w: 11
+          h: 29
+      - idx: 17
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 565
+          t: 200
+          r: 678
+          b: 224
+          w: 113
+          h: 24
+      - idx: 18
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 678
+          t: 203
+          r: 687
+          b: 224
+          w: 9
+          h: 21
+      - idx: 19
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 687
+          t: 208
+          r: 709
+          b: 224
+          w: 22
+          h: 16
+      - idx: 20
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 709
+          t: 200
+          r: 720
+          b: 224
+          w: 11
+          h: 24
+      - idx: 21
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 720
+          t: 200
+          r: 765
+          b: 231
+          w: 45
+          h: 31
+      - idx: 22
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 765
+          t: 200
+          r: 775
+          b: 229
+          w: 10
+          h: 29
+      - idx: 23
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 775
+          t: 200
+          r: 789
+          b: 224
+          w: 14
+          h: 24
+      - idx: 24
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 789
+          t: 200
+          r: 803
+          b: 225
+          w: 14
+          h: 25
+      - idx: 25
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 803
+          t: 206
+          r: 820
+          b: 225
+          w: 17
+          h: 19
+      - idx: 26
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 820
+          t: 198
+          r: 836
+          b: 233
+          w: 16
+          h: 35
+      - idx: 27
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 836
+          t: 198
+          r: 874
+          b: 233
+          w: 38
+          h: 35
+      - idx: 28
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 874
+          t: 220
+          r: 925
+          b: 229
+          w: 51
+          h: 9
+      - idx: 29
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 925
+          t: 220
+          r: 931
+          b: 229
+          w: 6
+          h: 9
+      - idx: 30
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 931
+          t: 200
+          r: 939
+          b: 229
+          w: 8
+          h: 29
+      - idx: 31
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 939
+          t: 200
+          r: 962
+          b: 224
+          w: 23
+          h: 24
+      - idx: 32
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 962
+          t: 198
+          r: 979
+          b: 233
+          w: 17
+          h: 35
+      - idx: 33
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 979
+          t: 198
+          r: 991
+          b: 233
+          w: 12
+          h: 35
+      - idx: 34
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 991
+          t: 198
+          r: 1003
+          b: 233
+          w: 12
+          h: 35
+      - idx: 35
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1003
+          t: 200
+          r: 1056
+          b: 224
+          w: 53
+          h: 24
+      - idx: 36
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1056
+          t: 200
+          r: 1065
+          b: 224
+          w: 9
+          h: 24
+      - idx: 37
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1065
+          t: 200
+          r: 1080
+          b: 224
+          w: 15
+          h: 24
+      - idx: 38
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1080
+          t: 200
+          r: 1093
+          b: 225
+          w: 13
+          h: 25
+      - idx: 39
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1093
+          t: 206
+          r: 1110
+          b: 225
+          w: 17
+          h: 19
+      - idx: 40
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1110
+          t: 198
+          r: 1126
+          b: 233
+          w: 16
+          h: 35
+      - idx: 41
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1126
+          t: 198
+          r: 1164
+          b: 233
+          w: 38
+          h: 35
+      - idx: 42
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 1164
+          t: 220
+          r: 1216
+          b: 229
+          w: 52
+          h: 9
+      - idx: 43
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1216
+          t: 220
+          r: 1222
+          b: 229
+          w: 6
+          h: 9
+      - idx: 44
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1222
+          t: 200
+          r: 1229
+          b: 229
+          w: 7
+          h: 29
+      - idx: 45
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1229
+          t: 198
+          r: 1292
+          b: 233
+          w: 63
+          h: 35
+      - idx: 46
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1292
+          t: 209
+          r: 1302
+          b: 229
+          w: 10
+          h: 20
+      - idx: 47
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1302
+          t: 200
+          r: 1355
+          b: 224
+          w: 53
+          h: 24
+      - idx: 48
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1355
+          t: 200
+          r: 1367
+          b: 227
+          w: 12
+          h: 27
+      - idx: 49
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1367
+          t: 204
+          r: 1390
+          b: 227
+          w: 23
+          h: 23
+      - idx: 50
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1390
+          t: 200
+          r: 1401
+          b: 227
+          w: 11
+          h: 27
+      - idx: 51
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1401
+          t: 200
+          r: 1512
+          b: 224
+          w: 111
+          h: 24
+      - idx: 52
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 1512
+          t: 203
+          r: 1522
+          b: 224
+          w: 10
+          h: 21
+      - idx: 53
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 1522
+          t: 200
+          r: 1565
+          b: 224
+          w: 43
+          h: 24
+  - src_id: 10
+    bbox:
+      l: 154
+      t: 217
+      r: 974
+      b: 236
+      w: 820
+      h: 19
+    atom_count: 2
+    gap_count: 1
+    warnings: []
+    stream:
+      - idx: 1
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 154
+          t: 217
+          r: 167
+          b: 236
+          w: 13
+          h: 19
+      - idx: 2
+        kind: "WIDE_SPACE"
+        role: "Space"
+        bbox:
+          l: 167
+          t: 217
+          r: 961
+          b: 236
+          w: 794
+          h: 19
+      - idx: 3
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 961
+          t: 217
+          r: 974
+          b: 236
+          w: 13
+          h: 19
+  - src_id: 12
+    bbox:
+      l: 107
+      t: 266
+      r: 382
+      b: 300
+      w: 275
+      h: 34
+    atom_count: 2
+    gap_count: 1
+    warnings: []
+    stream:
+      - idx: 1
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 107
+          t: 266
+          r: 257
+          b: 291
+          w: 150
+          h: 25
+      - idx: 2
+        kind: "WD_SPACE"
+        role: "Space"
+        bbox:
+          l: 257
+          t: 275
+          r: 267
+          b: 300
+          w: 10
+          h: 25
+      - idx: 3
+        kind: "H_RUN"
+        role: "TextRun"
+        bbox:
+          l: 267
+          t: 267
+          r: 382
+          b: 300
+          w: 115
+          h: 33

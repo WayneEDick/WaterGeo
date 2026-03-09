@@ -1,0 +1,218 @@
+# ============================================================
+# WATER GEO – ANNOTATED CONFIG (Engineering Copy)
+# Purpose:
+#   - Fast, consistent debugging with minimal re-thinking.
+#   - Preserve parameter intent and expected failure modes.
+#
+# CSUN policy (3/1–3/9):
+#   - Do NOT rename parameters. Comments only.
+#   - Stabilize pages: 0007 + 0021. 0008 is stretch.
+# ============================================================
+
+meta:
+  pipeline: WaterGeo
+  version: v2.1-rails
+  created: 2026-01-02
+  notes:
+    # Born-digital PNG assumption keeps rotation issues out of scope for CSUN.
+    - "Born-digital PNG: assume page-aligned (angle 0 or 90)."
+    # Gutters are geometric obstacles: they should block cross-column linking.
+    - "Columns are derived; column boundaries (gutters) are detected as geometric obstacles."
+    # “Bad justification” here means uneven spacing; handled by persistence + crossings.
+    - "Bad justification handled by persistence + crossings + two-rail test."
+
+inputs:
+  png_path: C:/Users/wayne/OneDrive/Documents/Jupyter/water/Geo/Code/input/input.png
+  dpi: 300
+  expected_polarity: auto              # 'auto' lets pipeline decide black-on-white vs inverse.
+  approx_x_height_px: null             # leave null if xh_d is estimated by G4.
+
+outputs:
+  out_dir: out_geo
+  save_debug_images: true              # turn off only when performance becomes the bottleneck.
+  save_json: true                      # needed for comparing runs and postmortems.
+  debug_upscale: 2                     # larger = easier to inspect boxes; costs time/storage.
+  debug_draw_cc_box_centers: true      # center dots help see grouping behavior.
+  g3_boxes_only_fill_alpha: 1.0        # visualization: fill opacity of G3 boxes.
+  vg_boxes_only_fill_alpha: 1.0        # visualization: V-graph boxes.
+  hg_boxes_only_fill_alpha: 1.0        # visualization: H-graph boxes.
+
+params:
+  cc:
+    connectivity: 8                    # 8-connectivity is standard for glyph-like CCs.
+    min_area_px: 16                    # too low -> dust becomes CCs; too high -> punctuation lost.
+
+  g3:
+    # G3 performs CC-level geometry classification using absolute limits (px).
+    MaxChW: 52                         # max character-like width.
+    MaxChH: 47                         # max character-like height.
+    minChW: 6                          # min character-like width.
+    minChH: 6                          # min character-like height.
+
+  g4:
+    # G4 derives page constants and category bands (often via ratios to xh_d).
+    mm_hi: 1.6                         # “medium/macro” cutoff band (ratio). Impacts token classing.
+    near_square_min: 0.9               # square-ish lower ratio.
+    near_square_max: 1.1               # square-ish upper ratio.
+    tau: 0.6                           # general tolerance knob (ratio-based).
+    md_lo: 0.9                         # medium band low.
+    md_hi: 1.35                        # medium band high.
+    mc_lo: 0.35                        # micro band low.
+    mc_hi: 0.7                         # micro band high.
+    mm_lo: 1.35                        # macro band low.
+
+  phase2:
+    # Phase2 is where adjacency graphs and “support” logic either stabilize text
+    # or explode floaters. Most multipliers scale by xh_d.
+
+    # ---- Grid / neighborhood construction ----
+    grid_edge_mult: 0.6
+    # Grid cell size factor.
+    # Too small => too many cells/noise; too large => misses local adjacency.
+
+    cand_margin_mult: 2.0
+    # Candidate search margin around a token/CC (in xh units).
+    # Too small => miss neighbors (broken runs / floaters).
+    # Too large => false neighbors (cross-line/cross-column risk).
+
+    # ---- Link tolerances (“glue”) ----
+    eps_mult: 0.4
+    # Tight epsilon for proximity tests (scaled by xh_d).
+    # Too small => brittle; too large => accidental merges.
+
+    delta_mult: 0.8
+    # H-graph horizontal tolerance (scaled by xh_d).
+    # Smaller => stricter linking => more breaks + floaters.
+    # Larger => more merging => risk cross-line/gutter merges.
+    # Symptom: floater explosion on 0007 often means delta_mult too small.
+
+    support_gap_mult: 1.2
+    # Max white gap allowed for “support” (scaled by xh_d).
+    # Too small => supported tokens become floaters.
+    # Too large => support bridges across gutters.
+
+    tau_tight_mult: 0.25
+    # Extra-tight “almost touching” threshold.
+    # Helps attach punctuation/diacritics; too large => spurious attachments.
+
+    # ---- Vertical neighborhood limits ----
+    max_above: 3
+    max_below: 2
+    # Neighbor-row window for considering vertical interactions.
+    # Larger helps deep stacks (0008) but increases cross-line risk.
+
+    allow_overcap: true
+    # Permit tall symbol intrusion into adjacent rows.
+    # Helps integrals/fences; can cause cross-line mistakes if other thresholds are loose.
+
+    # ---- Shape thresholds (relative to xh_d) ----
+    speck_h_mult: 0.35
+    speck_w_mult: 0.35
+    # “Dust” thresholds. Too high => punctuation becomes noise. Too low => clutter.
+
+    tall_mult: 2.8
+    # Height > tall_mult*xh_d => tall category (integrals, fences, stacks).
+    # Too low => too many tall objects; too high => miss integrals.
+
+    thin_mult: 0.35
+    # Width < thin_mult*xh_d => thin strokes.
+    # Too high => letters misclassified; too low => miss true thin strokes.
+
+    wide_mult: 3.0
+    # Width > wide_mult*xh_d => wide category (fraction bars, rules).
+    # Too low => too many wides; too high => miss fraction bars.
+
+    flat_mult: 0.25
+    # Height < flat_mult*xh_d => flat category (bars/rules).
+    # Too high => punctuation becomes “flat”; too low => miss rules.
+
+    # ---- Big symbol band (relative to xh_d) ----
+    big_sym_h_min_mult: 1.60
+    # Lower height bound for BigSym (operator-sized symbols).
+    # Must be > 1.0*xh_d (text), and well below true images.
+
+    big_sym_h_max_mult: 3.50
+    # Upper height bound for BigSym. About 3x xh_d is a good CSUN anchor.
+    # Too low => miss integrals/large ops; too high => images leak into BigSym.
+
+    ov_mult: 0.5
+    # Overlap tolerance for box overlap/connection tests.
+    # Too small => splits; too large => merges.
+
+    # ---- Spacing tokenization ----
+    wd_mult: 0.75
+    # Word-space threshold. Gap >= wd_mult*xh_d => WD_SPACE token.
+    # Too small => over-splitting; too large => words glue.
+
+    wide_factor: 2.0
+    # Wide-space threshold relative to word-space.
+    # Too small => WIDE_SPACE appears everywhere.
+    # Too large => gutters not recognized as wide separations.
+
+    # ---- Histogram / binning ----
+    bin_height_mult: 1.5
+    # Vertical bin height in histograms (scaled).
+    # Too small => noisy; too large => merges separate lines.
+
+    # ---- Satellites (diacritics, primes, dots) ----
+    sat_h_mult: 1.0
+    # Satellite height allowance relative to xh_d.
+    # Too low => dots/primes detach => floaters.
+    # Too high => small letters treated as satellites.
+
+steps:
+  # Pipeline steps. Keep this stable for CSUN. Disable only for debugging speed.
+  - name: G0_load_normalize
+    fn: load_normalize
+    enabled: true
+  - name: G1_binarize
+    fn: binarize
+    enabled: true
+  - name: G2_connected_components
+    fn: connected_components
+    enabled: true
+  - name: G2b_build_ccs
+    fn: build_ccs
+    enabled: true
+  - name: G2c_debug_cc_boxes
+    fn: debug_render_cc_boxes
+    enabled: true
+  - name: G3_classify_ccs
+    fn: classify_ccs_g3
+    enabled: true
+  - name: G3b_debug_g3_boxes
+    fn: debug_render_g3_boxes
+    enabled: true
+  - name: G3c_debug_g3_boxes_only
+    fn: debug_render_g3_boxes_only
+    enabled: true
+  - name: G4_page_constants
+    fn: g4_page_constants
+    enabled: true
+  - name: G4b_debug_g4_boxes
+    fn: debug_render_g4_boxes
+    enabled: true
+  - name: G4c_debug_histogram
+    fn: debug_render_g4_histogram
+    enabled: true
+  - name: P2a_V_Graph
+    fn: v_graph
+    enabled: true
+  - name: P2a_dbg_VG_boxes_only
+    fn: debug_render_vg_boxes_only
+    enabled: true
+  - name: P2b_mark_floaters
+    fn: mark_floaters
+    enabled: true
+  - name: P2c_H_Graph
+    fn: h_graph
+    enabled: true
+  - name: P2c_dbg_HG_boxes_only
+    fn: debug_render_hg_boxes_only
+    enabled: true
+  - name: G5a_classify_tokens
+    fn: g5a_classify_tokens
+    enabled: true
+  - name: G5a_write_token_report
+    fn: g5a_write_token_report
+    enabled: true

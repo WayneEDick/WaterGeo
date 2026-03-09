@@ -1,0 +1,132 @@
+G5a Token Report: input
+
+xh_d = 14.000
+phase2 multipliers: ov=0.5, support_gap=1.2, bin_h_mult=1.5
+shape mults: tall=2.8, thin=0.35, wide=3.0, flat=0.25
+near-square band: [0.9, 1.1]
+
+Floaters: inline=1, block=3
+
+Counts by kind:
+  FLOATER_BLOB_TOKEN: 4
+  H_RUN: 54
+  WD_SPACE: 25
+  WIDE_SPACE: 22
+
+Counts by role:
+  Space: 47
+  TextRun: 54
+  Unknown: 4
+
+Counts by shape:
+  -: 101
+  Other: 4
+
+Token list (sorted by top,left):
+  idx  kind               role             inl shape            txt len  l   t   r   b   w   h   members
+  ---  -----------------  ---------------  --- ---------------  --- ---  --- --- --- --- --- --- --------
+    1  H_RUN              TextRun           Y  -                 Y    8   62  68 185  88 123  20        8
+    2  H_RUN              TextRun           Y  -                 Y    4  203  68 264  88  61  20        4
+    3  H_RUN              TextRun           Y  -                 Y    6  443  68 534  88  91  20        6
+    4  H_RUN              TextRun           Y  -                 Y    5  568  68 645  88  77  20        5
+    5  WD_SPACE           Space             Y  -                 N    0  185  69 203  88  18  19        0
+    6  H_RUN              TextRun           Y  -                 Y    6  284  69 375  88  91  19        6
+    7  WD_SPACE           Space             Y  -                 N    0  264  74 284  88  20  14        0
+    8  H_RUN              TextRun           Y  -                 Y    1  267  74 281  94  14  20        1
+    9  WIDE_SPACE         Space             Y  -                 N    0  281  74 537  94 256  20        0
+   10  WD_SPACE           Space             Y  -                 N    0  375  74 395  88  20  14        0
+   11  H_RUN              TextRun           Y  -                 Y    2  395  74 423  88  28  14        2
+   12  WD_SPACE           Space             Y  -                 N    0  423  74 443  88  20  14        0
+   13  WIDE_SPACE         Space             Y  -                 N    0  534  74 568  88  34  14        0
+   14  H_RUN              TextRun           Y  -                 Y    1  537  74 550  94  13  20        1
+   15  WIDE_SPACE         Space             Y  -                 N    0  550  74 652  94 102  20        0
+   16  WD_SPACE           Space             Y  -                 N    0  645  74 652  88   7  14        0
+   17  FLOATER_BLOB_TOKEN  Unknown           N  Other             N    1  652  74 657  78   5   4        1
+   18  FLOATER_BLOB_TOKEN  Unknown           N  Other             N    1  652  84 657  88   5   4        1
+   19  H_RUN              TextRun           Y  -                 Y    3   62 154 106 174  44  20        3
+   20  H_RUN              TextRun           Y  -                 Y    1  543 236 554 246  11  10        1
+   21  WIDE_SPACE         Space             Y  -                 N    0  554 236 591 257  37  21        0
+   22  H_RUN              TextRun           Y  -                 Y    1  591 238 602 257  11  19        1
+   23  FLOATER_BLOB_TOKEN  Unknown           N  Other             N    1  521 240 540 302  19  62        1
+   24  WIDE_SPACE         Space             Y  -                 N    0  540 240 562 302  22  62        0
+   25  FLOATER_BLOB_TOKEN  Unknown           Y  Other             N    1  562 240 581 302  19  62        1
+   26  WD_SPACE           Space             Y  -                 N    0  581 240 589 302   8  62        0
+   27  H_RUN              TextRun           Y  -                 Y    3  589 259 637 279  48  20        3
+   28  H_RUN              TextRun           Y  -                 Y    1  592 280 601 298   9  18        1
+   29  H_RUN              TextRun           Y  -                 Y    1  535 293 543 306   8  13        1
+   30  H_RUN              TextRun           Y  -                 Y    1  109 365 121 385  12  20        1
+   31  WIDE_SPACE         Space             Y  -                 N    0  121 365 220 385  99  20        0
+   32  H_RUN              TextRun           Y  -                 Y    1  220 365 232 385  12  20        1
+   33  H_RUN              TextRun           Y  -                 Y    3   63 371 105 385  42  14        3
+   34  WD_SPACE           Space             Y  -                 N    0  105 371 126 385  21  14        0
+   35  H_RUN              TextRun           Y  -                 Y    3  126 371 170 391  44  20        3
+   36  WD_SPACE           Space             Y  -                 N    0  170 371 188 391  18  20        0
+   37  H_RUN              TextRun           Y  -                 Y    2  188 371 217 385  29  14        2
+   38  WD_SPACE           Space             Y  -                 N    0  217 371 236 385  19  14        0
+   39  H_RUN              TextRun           Y  -                 Y    2  236 371 265 385  29  14        2
+   40  WIDE_SPACE         Space             Y  -                 N    0  106 451 173 471  67  20        0
+   41  H_RUN              TextRun           Y  -                 Y    1  173 451 185 471  12  20        1
+   42  WD_SPACE           Space             Y  -                 N    0  185 451 205 471  20  20        0
+   43  WIDE_SPACE         Space             Y  -                 N    0  233 451 272 471  39  20        0
+   44  H_RUN              TextRun           Y  -                 Y    1  272 451 276 458   4   7        1
+   45  WD_SPACE           Space             Y  -                 N    0  276 451 284 471   8  20        0
+   46  WD_SPACE           Space             Y  -                 N    0  296 451 304 471   8  20        0
+   47  H_RUN              TextRun           Y  -                 Y    1  304 451 307 458   3   7        1
+   48  WIDE_SPACE         Space             Y  -                 N    0  307 451 337 462  30  11        0
+   49  WIDE_SPACE         Space             Y  -                 N    0  444 451 484 471  40  20        0
+   50  H_RUN              TextRun           Y  -                 Y    1  484 451 487 458   3   7        1
+   51  WD_SPACE           Space             Y  -                 N    0  487 451 495 471   8  20        0
+   52  WD_SPACE           Space             Y  -                 N    0  508 451 516 471   8  20        0
+   53  H_RUN              TextRun           Y  -                 Y    1  516 451 519 458   3   7        1
+   54  WD_SPACE           Space             Y  -                 N    0  519 451 537 462  18  11        0
+   55  WIDE_SPACE         Space             Y  -                 N    0  565 451 600 471  35  20        0
+   56  H_RUN              TextRun           Y  -                 Y    1  600 451 614 471  14  20        1
+   57  WIDE_SPACE         Space             Y  -                 N    0  614 451 680 471  66  20        0
+   58  H_RUN              TextRun           Y  -                 Y    1  680 451 693 471  13  20        1
+   59  WIDE_SPACE         Space             Y  -                 N    0  693 451 728 471  35  20        0
+   60  WIDE_SPACE         Space             Y  -                 N    0  757 451 796 471  39  20        0
+   61  H_RUN              TextRun           Y  -                 Y    1  796 451 799 458   3   7        1
+   62  WD_SPACE           Space             Y  -                 N    0  799 451 806 471   7  20        0
+   63  H_RUN              TextRun           Y  -                 Y    2  806 451 835 471  29  20        2
+   64  WD_SPACE           Space             Y  -                 N    0  835 451 843 471   8  20        0
+   65  H_RUN              TextRun           Y  -                 Y    1  843 451 846 458   3   7        1
+   66  WD_SPACE           Space             Y  -                 N    0  846 451 855 462   9  11        0
+   67  H_RUN              TextRun           Y  -                 Y    1   93 452 106 471  13  19        1
+   68  H_RUN              TextRun           Y  -                 Y    2  205 452 233 471  28  19        2
+   69  H_RUN              TextRun           Y  -                 Y    1  284 452 296 471  12  19        1
+   70  H_RUN              TextRun           Y  -                 Y    2  337 452 365 471  28  19        2
+   71  WIDE_SPACE         Space             Y  -                 N    0  365 452 416 471  51  19        0
+   72  H_RUN              TextRun           Y  -                 Y    2  416 452 444 471  28  19        2
+   73  H_RUN              TextRun           Y  -                 Y    1  495 452 508 471  13  19        1
+   74  H_RUN              TextRun           Y  -                 Y    2  537 452 565 471  28  19        2
+   75  H_RUN              TextRun           Y  -                 Y    2  728 452 757 471  29  19        2
+   76  H_RUN              TextRun           Y  -                 Y    2  855 452 883 471  28  19        2
+   77  H_RUN              TextRun           Y  -                 Y    2   62 457  90 471  28  14        2
+   78  WD_SPACE           Space             Y  -                 N    0   90 457 109 471  19  14        0
+   79  H_RUN              TextRun           Y  -                 Y    4  109 457 169 477  60  20        4
+   80  WIDE_SPACE         Space             Y  -                 N    0  169 457 205 471  36  14        0
+   81  WIDE_SPACE         Space             Y  -                 N    0  377 457 400 476  23  19        0
+   82  H_RUN              TextRun           Y  -                 Y    2  400 457 428 471  28  14        2
+   83  WIDE_SPACE         Space             Y  -                 N    0  578 457 617 476  39  19        0
+   84  H_RUN              TextRun           Y  -                 Y    3  617 457 660 471  43  14        3
+   85  WIDE_SPACE         Space             Y  -                 N    0  660 457 696 471  36  14        0
+   86  H_RUN              TextRun           Y  -                 Y    3  696 457 740 471  44  14        3
+   87  WIDE_SPACE         Space             Y  -                 N    0  245 461 315 476  70  15        0
+   88  H_RUN              TextRun           Y  -                 Y    1  315 461 323 473   8  12        1
+   89  WD_SPACE           Space             Y  -                 N    0  323 461 337 473  14  12        0
+   90  WIDE_SPACE         Space             Y  -                 N    0  456 461 526 476  70  15        0
+   91  H_RUN              TextRun           Y  -                 Y    2  526 461 550 473  24  12        2
+   92  H_RUN              TextRun           Y  -                 Y    1  205 465 217 467  12   2        1
+   93  WD_SPACE           Space             Y  -                 N    0  217 465 238 476  21  11        0
+   94  H_RUN              TextRun           Y  -                 Y    1  337 465 349 467  12   2        1
+   95  WD_SPACE           Space             Y  -                 N    0  349 465 370 476  21  11        0
+   96  WD_SPACE           Space             Y  -                 N    0  428 465 449 476  21  11        0
+   97  WD_SPACE           Space             Y  -                 N    0  550 465 570 476  20  11        0
+   98  WD_SPACE           Space             Y  -                 N    0  740 465 761 476  21  11        0
+   99  WIDE_SPACE         Space             Y  -                 N    0  768 465 855 476  87  11        0
+  100  H_RUN              TextRun           Y  -                 Y    1  855 465 867 467  12   2        1
+  101  H_RUN              TextRun           Y  -                 Y    1  238 467 245 476   7   9        1
+  102  H_RUN              TextRun           Y  -                 Y    1  370 467 377 476   7   9        1
+  103  H_RUN              TextRun           Y  -                 Y    1  449 467 456 476   7   9        1
+  104  H_RUN              TextRun           Y  -                 Y    1  570 467 578 476   8   9        1
+  105  H_RUN              TextRun           Y  -                 Y    1  761 467 768 476   7   9        1

@@ -1,0 +1,142 @@
+meta:
+  pipeline: WaterGeo
+  version: v2.1-rails
+  created: 2026-01-02
+  notes:
+  - 'Born-digital PNG: assume page-aligned (angle 0 or 90).'
+  - Columns are derived; column boundaries (gutters) are detected as geometric obstacles.
+  - Bad justification handled by persistence + crossings + two-rail test.
+inputs:
+  png_path: C:/Users/wayne/OneDrive/Documents/Jupyter/water/Geo/Code/input/input.png
+  dpi: 300
+  expected_polarity: auto
+  approx_x_height_px: null
+outputs:
+  out_dir: out_geo
+  save_debug_images: true
+  save_json: true
+  debug_upscale: 2
+  debug_draw_cc_box_centers: true
+  g3_boxes_only_fill_alpha: 1.0
+  vg_boxes_only_fill_alpha: 1.0
+  hg_boxes_only_fill_alpha: 1.0
+params:
+  cc:
+    connectivity: 8
+    min_area_px: 16
+  g3:
+    MaxChW: 52
+    MaxChH: 47
+    minChW: 6
+    minChH: 6
+  g4:
+    mm_hi: 1.6
+    near_square_min: 0.9
+    near_square_max: 1.1
+    tau: 0.6
+    md_lo: 0.9
+    md_hi: 1.35
+    mc_lo: 0.35
+    mc_hi: 0.7
+    mm_lo: 1.35
+  phase2:
+    grid_edge_mult: 0.6
+    cand_margin_mult: 2.0
+    eps_mult: 0.4
+    delta_mult: 0.8
+    a_mult: 1.0
+    d_mult: 0.7
+    max_above: 3
+    max_below: 2
+    allow_overcap: true
+    speck_h_mult: 0.35
+    speck_w_mult: 0.35
+    tall_mult: 2.8
+    thin_mult: 0.35
+    wide_mult: 3.0
+    flat_mult: 0.25
+    ov_mult: 0.5
+    support_gap_mult: 1.2
+    tau_tight_mult: 0.45
+    wd_mult: 0.75
+    wide_factor: 2.0
+    bin_height_mult: 1.5
+    sat_h_mult: 1.0
+    big_sym_h_min_mult: 1.6
+    big_sym_h_max_mult: 3.5
+steps:
+- name: G0_load_normalize
+  fn: load_normalize
+  enabled: true
+- name: G1_binarize
+  fn: binarize
+  enabled: true
+- name: G2_connected_components
+  fn: connected_components
+  enabled: true
+- name: G2b_build_ccs
+  fn: build_ccs
+  enabled: true
+- name: G2c_debug_cc_boxes
+  fn: debug_render_cc_boxes
+  enabled: true
+- name: G3_classify_ccs
+  fn: classify_ccs_g3
+  enabled: true
+- name: G3b_debug_g3_boxes
+  fn: debug_render_g3_boxes
+  enabled: true
+- name: G3c_debug_g3_boxes_only
+  fn: debug_render_g3_boxes_only
+  enabled: true
+- name: G4_page_constants
+  fn: g4_page_constants
+  enabled: true
+- name: G4b_debug_g4_boxes
+  fn: debug_render_g4_boxes
+  enabled: true
+- name: G4c_debug_histogram
+  fn: debug_render_g4_histogram
+  enabled: true
+- name: P2a_V_Graph
+  fn: v_graph
+  enabled: true
+- name: P2a_dbg_VG_boxes_only
+  fn: debug_render_vg_boxes_only
+  enabled: true
+- name: P2b_mark_floaters
+  fn: mark_floaters
+  enabled: true
+- name: P2c_H_Graph
+  fn: h_graph
+  enabled: true
+- name: P2c_dbg_HG_boxes_only
+  fn: debug_render_hg_boxes_only
+  enabled: true
+- name: G5a_classify_tokens
+  fn: g5a_classify_tokens
+  enabled: true
+- name: G5a_write_token_report
+  fn: g5a_write_token_report
+  enabled: true
+- name: G5a5a_attach_accents
+  fn: g5a5a_attach_accents
+  enabled: true
+- name: G5b_make_streams
+  fn: g5b_make_streams
+  enabled: true
+- name: G5b_dbg_stream_boxes
+  fn: debug_render_g5b_stream_boxes
+  enabled: true
+- name: G5b_write_stream_report
+  fn: g5b_write_stream_report
+  enabled: true
+- name: G6a_fraction_blocks
+  fn: g6a_fraction_blocks
+  enabled: true
+- name: G6a_write_frac_report
+  fn: g6a_write_frac_report
+  enabled: true
+- name: G6a_dbg_frac_boxes
+  fn: debug_render_g6a_frac_boxes
+  enabled: true

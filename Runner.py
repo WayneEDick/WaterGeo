@@ -20,7 +20,7 @@ import dataclasses
 
 import yaml
 
-import Functions  # local file
+import Functions # local file (G4-enabled)
 
 
 def load_yaml(path: str) -> Dict[str, Any]:

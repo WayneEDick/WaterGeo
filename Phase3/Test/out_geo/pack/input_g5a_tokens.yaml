@@ -1,0 +1,518 @@
+g5a_report:
+  stem: "input"
+  xh_d: 24
+  params:
+    tall_mult: 2.8
+    thin_mult: 0.35
+    wide_mult: 3
+    flat_mult: 0.25
+    near_sq_min: 0.9
+    near_sq_max: 1.1
+  counts:
+    by_kind:
+      FLOATER_BLOB_TOKEN: 12
+      H_RUN: 14
+      WD_SPACE: 7
+    by_role:
+      Space: 7
+      TextRun: 14
+      Unknown: 12
+    floaters:
+      inline: 0
+      block: 12
+  tokens:
+    - idx: 1
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 203
+        t: 209
+        r: 206
+        b: 231
+        w: 3
+        h: 22
+      members_count: 1
+    - idx: 2
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 206
+        t: 209
+        r: 215
+        b: 231
+        w: 9
+        h: 22
+      members_count: 0
+    - idx: 3
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 6
+      bbox:
+        l: 215
+        t: 209
+        r: 322
+        b: 231
+        w: 107
+        h: 22
+      members_count: 6
+    - idx: 4
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 5
+      bbox:
+        l: 330
+        t: 209
+        r: 417
+        b: 231
+        w: 87
+        h: 22
+      members_count: 5
+    - idx: 5
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 322
+        t: 215
+        r: 330
+        b: 231
+        w: 8
+        h: 16
+      members_count: 0
+    - idx: 6
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 417
+        t: 215
+        r: 427
+        b: 231
+        w: 10
+        h: 16
+      members_count: 0
+    - idx: 7
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 427
+        t: 215
+        r: 440
+        b: 231
+        w: 13
+        h: 16
+      members_count: 1
+    - idx: 8
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 6
+      bbox:
+        l: 203
+        t: 279
+        r: 304
+        b: 307
+        w: 101
+        h: 28
+      members_count: 6
+    - idx: 9
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 315
+        t: 292
+        r: 323
+        b: 294
+        w: 8
+        h: 2
+      members_count: 1
+    - idx: 10
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 333
+        t: 297
+        r: 338
+        b: 305
+        w: 5
+        h: 8
+      members_count: 1
+    - idx: 11
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 242
+        t: 348
+        r: 256
+        b: 370
+        w: 14
+        h: 22
+      members_count: 1
+    - idx: 12
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 296
+        t: 348
+        r: 309
+        b: 370
+        w: 13
+        h: 22
+      members_count: 1
+    - idx: 13
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 203
+        t: 354
+        r: 226
+        b: 370
+        w: 23
+        h: 16
+      members_count: 1
+    - idx: 14
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 261
+        t: 354
+        r: 291
+        b: 370
+        w: 30
+        h: 16
+      members_count: 2
+    - idx: 15
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 230
+        t: 361
+        r: 238
+        b: 363
+        w: 8
+        h: 2
+      members_count: 1
+    - idx: 16
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 318
+        t: 361
+        r: 348
+        b: 363
+        w: 30
+        h: 2
+      members_count: 1
+    - idx: 17
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 358
+        t: 366
+        r: 363
+        b: 374
+        w: 5
+        h: 8
+      members_count: 1
+    - idx: 18
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 4
+      bbox:
+        l: 232
+        t: 417
+        r: 299
+        b: 439
+        w: 67
+        h: 22
+      members_count: 4
+    - idx: 19
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 203
+        t: 423
+        r: 216
+        b: 439
+        w: 13
+        h: 16
+      members_count: 1
+    - idx: 20
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 339
+        t: 423
+        r: 365
+        b: 439
+        w: 26
+        h: 16
+      members_count: 2
+    - idx: 21
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 220
+        t: 430
+        r: 228
+        b: 432
+        w: 8
+        h: 2
+      members_count: 1
+    - idx: 22
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 308
+        t: 430
+        r: 323
+        b: 432
+        w: 15
+        h: 2
+      members_count: 1
+    - idx: 23
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 395
+        t: 485
+        r: 413
+        b: 509
+        w: 18
+        h: 24
+      members_count: 0
+    - idx: 24
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 413
+        t: 485
+        r: 437
+        b: 509
+        w: 24
+        h: 24
+      members_count: 1
+    - idx: 25
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 243
+        t: 489
+        r: 266
+        b: 515
+        w: 23
+        h: 26
+      members_count: 0
+    - idx: 26
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 266
+        t: 489
+        r: 290
+        b: 515
+        w: 24
+        h: 26
+      members_count: 1
+    - idx: 27
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 290
+        t: 489
+        r: 299
+        b: 515
+        w: 9
+        h: 26
+      members_count: 0
+    - idx: 28
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 2
+      bbox:
+        l: 202
+        t: 493
+        r: 243
+        b: 509
+        w: 41
+        h: 16
+      members_count: 2
+    - idx: 29
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 249
+        t: 493
+        r: 263
+        b: 515
+        w: 14
+        h: 22
+      members_count: 1
+    - idx: 30
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 1
+      bbox:
+        l: 299
+        t: 493
+        r: 311
+        b: 509
+        w: 12
+        h: 16
+      members_count: 1
+    - idx: 31
+      kind: "WD_SPACE"
+      role: "Space"
+      inline: true
+      shape: "-"
+      is_text_like: false
+      length: 0
+      bbox:
+        l: 311
+        t: 493
+        r: 334
+        b: 509
+        w: 23
+        h: 16
+      members_count: 0
+    - idx: 32
+      kind: "FLOATER_BLOB_TOKEN"
+      role: "Unknown"
+      inline: false
+      shape: "Other"
+      is_text_like: false
+      length: 1
+      bbox:
+        l: 315
+        t: 493
+        r: 329
+        b: 515
+        w: 14
+        h: 22
+      members_count: 1
+    - idx: 33
+      kind: "H_RUN"
+      role: "TextRun"
+      inline: true
+      shape: "-"
+      is_text_like: true
+      length: 4
+      bbox:
+        l: 334
+        t: 493
+        r: 395
+        b: 509
+        w: 61
+        h: 16
+      members_count: 4

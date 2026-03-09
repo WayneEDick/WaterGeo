@@ -517,3 +517,388 @@ def debug_render_g3_boxes_only(ctx: Context, cfg: Dict[str, Any]) -> None:
     out_png = out_dir / f"{stem}_g3_boxes_only.png"
     cv2.imwrite(str(out_png), rgb)
     ctx["debug_g3_boxes_only_png"] = str(out_png)
+
+
+# ============================================================
+# G4.0: Page Constants for Glyphify (baseline-free)
+# ============================================================
+
+# G4 debug colors for char_like subclasses (RGB tuples).
+# NOTE: OpenCV uses BGR; we convert at use-time.
+G4_DEBUG_RGB = {
+    "Md": (160, 70, 60),    # red-brown (main_like)
+    "Mc": (150, 140, 110),  # tan (capt_like)
+    "Mm": (70, 125, 180),   # blue-accent (math_like)
+    "MNot": (130, 90, 165), # purple-accent (not_glfy)
+}
+
+# ============================================================
+# G4 Band Debug Colors (LV-friendly, 9 bands)
+# band 0 = smallest, band 8 = largest
+# ============================================================
+
+G4_BAND_RGB = [
+    (60, 60, 60),        # 0 dark gray
+    (166, 124, 82),     # 1 light brown
+    (255, 178, 102),    # 2 light orange
+    (102, 204, 204),    # 3 light teal
+    (178, 102, 255),    # 4 light purple (dominant band)
+    (255, 153, 153),    # 5 light red
+    (153, 255, 153),    # 6 light green
+    (153, 204, 255),    # 7 light blue
+    (180, 180, 180),    # 8 gray (largest)
+]
+
+
+G4_DEFAULTS = {
+    "near_square_min": 0.9,
+    "near_square_max": 1.1,
+    "tau": 0.6,
+    "md_lo": 0.9,
+    "md_hi": 1.35,
+    "mc_lo": 0.35,
+    "mc_hi": 0.7,
+    "mm_lo": 1.35,
+    "mm_hi": 2.2,
+}
+
+
+def _g4_params(cfg: Dict[str, Any]) -> Dict[str, float]:
+    """Return numeric parameters for G4.0 (all floats)."""
+    p = cfg.get("params", {}).get("g4", {})
+    out: Dict[str, float] = {}
+    for k, dv in G4_DEFAULTS.items():
+        try:
+            out[k] = float(p.get(k, dv))
+        except Exception:
+            out[k] = float(dv)
+    return out
+
+
+def g4_page_constants(ctx: Context, cfg: Dict[str, Any]) -> None:
+    """G4.0: Compute page constants for Glyphify.
+
+    Inputs:
+      - ctx['ccs_g3'] : List[CC] with cc.kind in {char_like, image_like, speck, unknown}
+
+    Outputs (ctx['g4']):
+      - xhd, xhc, xhm (floats)
+      - h_hist (List[int]) bincount histogram over heights of near-square char_like boxes
+      - sd_bins: (bin_lo, bin_hi) inclusive range of dominant band
+      - classes_by_id: Dict[int, str] mapping cc_id -> {'Md','Mc','Mm','MNot'} for char_like only
+      - sets: Dict[str, List[int]] mapping class -> cc_id list (char_like only)
+      - params: used G4 parameters
+    """
+    ccs: List[CC] = ctx.get("ccs_g3", None)
+    if not isinstance(ccs, list):
+        raise ValueError("g4_page_constants: ctx['ccs_g3'] missing (run classify_ccs_g3 first)")
+
+    th = _g4_params(cfg)
+    ns_min = th["near_square_min"]
+    ns_max = th["near_square_max"]
+    tau = th["tau"]
+
+    # --- Step 1: Q = near-square char_like ---
+    q_heights: List[int] = []
+    q_cc_ids: List[int] = []
+
+    for cc in ccs:
+        if cc.kind != CCKind.CHAR_LIKE:
+            continue
+        h = _cc_h(cc)
+        w = _cc_w(cc)
+        if h <= 0 or w <= 0:
+            continue
+        r = float(h) / float(w)
+        if (r > ns_min) and (r < ns_max):
+            q_heights.append(int(h))
+            q_cc_ids.append(int(cc.cc_id))
+
+    if not q_heights:
+        raise ValueError("g4_page_constants: no near-square char_like boxes found (cannot build h_Hist)")
+
+    # --- Step 2.1: height histogram ---
+    max_h = int(max(q_heights))
+    counts = np.bincount(np.array(q_heights, dtype=np.int32), minlength=max_h + 1)
+    h_hist = counts.tolist()
+
+    # --- Step 2.2: dominant band Sd (deterministic) ---
+    p_bin = int(np.argmax(counts))
+    peak = int(counts[p_bin])
+    if peak <= 0:
+        raise ValueError("g4_page_constants: dominant peak is empty (unexpected)")
+
+    thr = float(tau) * float(peak)
+
+    lo = p_bin
+    while lo - 1 >= 0 and float(counts[lo - 1]) >= thr:
+        lo -= 1
+    hi = p_bin
+    while hi + 1 < counts.shape[0] and float(counts[hi + 1]) >= thr:
+        hi += 1
+
+    # Boxes B in Sd are those in Q with h(B) in [lo, hi]
+    xhd_candidates = [h for h in q_heights if lo <= h <= hi]
+    if not xhd_candidates:
+        raise ValueError("g4_page_constants: Sd band contains no boxes (unexpected)")
+
+    # --- Step 2.3: xhd = min height in Sd ---
+    xhd = float(min(xhd_candidates))
+    xhc = 0.35 * xhd
+    xhm = 1.35 * xhd
+
+    # --- Step 3: class assignment for ALL char_like (not only near-square) ---
+    md_lo = th["md_lo"] * xhd
+    md_hi = th["md_hi"] * xhd
+    mc_lo = th["mc_lo"] * xhd
+    mc_hi = th["mc_hi"] * xhd
+    mm_lo = th["mm_lo"] * xhd
+    mm_hi = th["mm_hi"] * xhd
+
+    classes_by_id: Dict[int, str] = {}
+    sets: Dict[str, List[int]] = {"Md": [], "Mc": [], "Mm": [], "MNot": []}
+
+    for cc in ccs:
+        if cc.kind != CCKind.CHAR_LIKE:
+            continue
+        h = float(_cc_h(cc))
+        cid = int(cc.cc_id)
+
+        # Boundary tie-break priority: Mm, then Md, then Mc
+        if (h >= mm_lo) and (h <= mm_hi):
+            lab = "Mm"
+        elif (h > md_lo) and (h < md_hi):
+            lab = "Md"
+        elif (h >= mc_lo) and (h <= mc_hi):
+            lab = "Mc"
+        else:
+            lab = "MNot"
+
+        classes_by_id[cid] = lab
+        sets[lab].append(cid)
+
+    ctx["g4"] = {
+        "xhd": xhd,
+        "xhc": xhc,
+        "xhm": xhm,
+        "h_hist": h_hist,
+        "sd_bins": (int(lo), int(hi)),
+        "peak_bin": int(p_bin),
+        "peak_count": int(peak),
+        "tau": float(tau),
+        "classes_by_id": classes_by_id,
+        "sets": sets,
+        "params": th,
+    }
+
+def g4_height_band(h: float, peak_h: float) -> int:
+    """
+    Map height h to one of 9 logarithmic bands around peak_h.
+    Band 4 is the dominant band.
+    """
+    if h <= 0 or peak_h <= 0:
+        return 4
+
+    import math
+
+    # log2 scale, 3 bands per octave
+    band = int(math.floor(math.log2(h / peak_h) * 3.0)) + 4
+
+    if band < 0:
+        return 0
+    if band > 8:
+        return 8
+    return band
+
+def debug_render_g4_boxes(ctx: Context, cfg: Dict[str, Any]) -> None:
+    """Render a debug PNG like G3, but char_like boxes are colored by G4 class (Md/Mc/Mm/MNot)."""
+    page = ctx.get("page", None)
+    if page is None:
+        raise ValueError("debug_render_g4_boxes: ctx['page'] missing (run load_normalize first)")
+
+    base = ctx.get("imageGray", None)
+    if not isinstance(base, np.ndarray) or base.ndim != 2:
+        base = ctx.get("imageBin", None)
+    if not isinstance(base, np.ndarray) or base.ndim != 2:
+        raise ValueError("debug_render_g4_boxes: ctx['imageGray' or 'imageBin'] missing")
+
+    ccs: List[CC] = ctx.get("ccs_g3", None)
+    if not isinstance(ccs, list):
+        raise ValueError("debug_render_g4_boxes: ctx['ccs_g3'] missing (run classify_ccs_g3 first)")
+
+    g4 = ctx.get("g4", None)
+    if not isinstance(g4, dict) or "classes_by_id" not in g4:
+        raise ValueError("debug_render_g4_boxes: ctx['g4'] missing (run g4_page_constants first)")
+
+    classes_by_id: Dict[int, str] = g4["classes_by_id"]
+
+    H = int(page["H"])
+    W = int(page["W"])
+    stem = Path(page["path"]).stem
+
+    out_dir = Path(cfg["outputs"]["out_dir"])
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    upscale = int(cfg.get("outputs", {}).get("debug_upscale", 2) or 2)
+    if upscale < 1:
+        upscale = 1
+
+    rgb = cv2.cvtColor(base.astype(np.uint8), cv2.COLOR_GRAY2BGR)
+    if upscale != 1:
+        rgb = cv2.resize(rgb, (W * upscale, H * upscale), interpolation=cv2.INTER_NEAREST)
+
+    thickness = max(3, 2 * int(upscale))
+    fill_alpha = float(cfg.get("outputs", {}).get("g4_debug_fill_alpha", 0.15) or 0.15)
+    fill_alpha = min(max(fill_alpha, 0.0), 0.8)
+
+    overlay = rgb.copy()
+
+    for cc in ccs:
+        t, l, h, w = cc.bbox
+        if h <= 0 or w <= 0:
+            continue
+
+        if cc.kind == CCKind.CHAR_LIKE:
+            g4 = ctx.get("g4", {})
+            peak_h = g4.get("xhd", None)
+
+            if peak_h is None:
+                rgb_col = (120, 120, 120)
+            else:
+                band = g4_height_band(h, float(peak_h))
+                rgb_col = G4_BAND_RGB[band]
+        else:
+            # keep existing G3 colors for non-char_like
+            rgb_col = G3_DEBUG_RGB.get(cc.kind, G3_DEBUG_RGB[CCKind.UNKNOWN])
+
+        bgr = (int(rgb_col[2]), int(rgb_col[1]), int(rgb_col[0]))
+
+        x0 = int(l * upscale)
+        y0 = int(t * upscale)
+        x1 = int((l + w) * upscale)
+        y1 = int((t + h) * upscale)
+
+        x0 = max(0, min(x0, rgb.shape[1] - 1))
+        y0 = max(0, min(y0, rgb.shape[0] - 1))
+        x1 = max(0, min(x1, rgb.shape[1] - 1))
+        y1 = max(0, min(y1, rgb.shape[0] - 1))
+        if x1 <= x0 or y1 <= y0:
+            continue
+
+        if fill_alpha > 0.0:
+            cv2.rectangle(overlay, (x0, y0), (x1, y1), bgr, thickness=-1)
+        cv2.rectangle(rgb, (x0, y0), (x1, y1), bgr, thickness=thickness)
+
+    if fill_alpha > 0.0:
+        rgb = cv2.addWeighted(overlay, fill_alpha, rgb, 1.0 - fill_alpha, 0)
+
+    out_png = out_dir / f"{stem}_g4_boxes.png"
+    cv2.imwrite(str(out_png), rgb)
+    ctx["debug_g4_boxes_png"] = str(out_png)
+
+
+# -----------------------------
+# G4 Debug: Histogram Rendering
+# -----------------------------
+
+def debug_render_g4_histogram(ctx: Context, cfg: Dict[str, Any]) -> None:
+    """G4 debug: render the height histogram to a PNG.
+
+    Reads:
+      - ctx['g4']['h_hist'] : List[int]
+      - ctx['g4']['sd_bins'] : [lo, hi] or (lo, hi) (optional)
+      - ctx['page']['path'] : used only to derive output stem
+      - cfg['outputs']['out_dir'] : output directory (required)
+
+    Writes:
+      - <out_dir>/<stem>_g4_hist.png
+      - ctx['debug_g4_hist_png'] = path string
+
+    Note:
+      Runner will still save JSON snapshots; this function adds the PNG.
+    """
+    g4 = ctx.get("g4", None)
+    if not isinstance(g4, dict):
+        raise ValueError("debug_render_g4_histogram: ctx['g4'] missing")
+
+    peak_h = g4.get("xhd", None)
+
+    if not bool(cfg.get("outputs", {}).get("save_debug_images", True)):
+        # Debug images disabled by config; do nothing.
+        return
+
+    g4 = ctx.get("g4", None)
+    if not isinstance(g4, dict):
+        raise ValueError("debug_render_g4_histogram: ctx['g4'] missing (run g4_page_constants first)")
+
+    h_hist = g4.get("h_hist", None)
+    if not isinstance(h_hist, list) or len(h_hist) == 0:
+        raise ValueError("debug_render_g4_histogram: g4['h_hist'] missing/empty")
+
+    sd_bins = g4.get("sd_bins", None)
+
+    # LV-safe layout parameters (override-able via cfg['outputs'])
+    out_cfg = cfg.get("outputs", {})
+    bar_w  = int(out_cfg.get("g4_hist_bar_w", 8) or 8)
+    height = int(out_cfg.get("g4_hist_height", 600) or 600)
+    margin = int(out_cfg.get("g4_hist_margin", 60) or 60)
+
+    bar_w = max(1, bar_w)
+    height = max(200, height)
+    margin = max(20, margin)
+
+    # Scale
+    max_val = max(int(v) for v in h_hist) if h_hist else 1
+    max_val = max(1, max_val)
+    scale_y = float(height - 2 * margin) / float(max_val)
+
+    width = margin * 2 + bar_w * len(h_hist)
+    bg = int(GRAY_BACKGROUND) if "GRAY_BACKGROUND" in globals() else 255
+    img = np.full((height, width, 3), (bg, bg, bg), dtype=np.uint8)  # BGR canvas
+
+    # Dominant band range
+    lo = hi = None
+    if isinstance(sd_bins, (list, tuple)) and len(sd_bins) == 2:
+        lo = int(sd_bins[0])
+        hi = int(sd_bins[1])
+
+    # Draw bars (color by height band)
+    for i, v in enumerate(h_hist):
+        v = int(v)
+        if v <= 0:
+            continue
+
+        x0 = margin + i * bar_w
+        x1 = x0 + bar_w - 1
+        y1 = height - margin
+        y0 = int(round(y1 - v * scale_y))
+
+        # Map histogram bin index to band color
+        if peak_h is not None:
+            band = g4_height_band(i, peak_h)
+            rgb = G4_BAND_RGB[band]
+        else:
+            rgb = (120, 120, 120)
+
+        # OpenCV uses BGR
+        bgr = (int(rgb[2]), int(rgb[1]), int(rgb[0]))
+        cv2.rectangle(img, (x0, y0), (x1, y1), bgr, thickness=-1)
+        #bgr = (int(rgb[2]), int(rgb[1]), int(rgb[0]))
+
+        #cv2.rectangle(img, (x0, y0), (x1, y1), bgr, thickness=-1)
+
+    # Axis line
+    cv2.line(img, (margin, height - margin), (width - margin, height - margin), (0, 0, 0), 1)
+
+    # Output path
+    out_dir = Path(cfg.get("outputs", {}).get("out_dir", "out_geo"))
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    stem = Path(ctx.get("page", {}).get("path", "page")).stem
+    out_png = out_dir / f"{stem}_g4_hist.png"
+
+    ok = cv2.imwrite(str(out_png), img)
+    if not ok:
+        raise IOError(f"debug_render_g4_histogram: cv2.imwrite failed for {out_png}")
+
+    ctx["debug_g4_hist_png"] = str(out_png)

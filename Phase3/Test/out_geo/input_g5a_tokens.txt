@@ -1,0 +1,52 @@
+G5a Token Report: input
+
+xh_d = 24.000
+phase2 multipliers: ov=0.5, support_gap=1.2, bin_h_mult=1.5
+shape mults: tall=2.8, thin=0.35, wide=3.0, flat=0.25
+near-square band: [0.9, 1.1]
+
+Floaters: inline=0, block=0
+
+Counts by kind:
+  H_RUN: 20
+  WD_SPACE: 7
+  WIDE_SPACE: 1
+
+Counts by role:
+  Space: 8
+  TextRun: 20
+
+Counts by shape:
+  -: 28
+
+Token list (sorted by top,left):
+  idx  kind               role             inl shape            txt len  l   t   r   b   w   h   members
+  ---  -----------------  ---------------  --- ---------------  --- ---  --- --- --- --- --- --- --------
+    1  H_RUN              TextRun           Y  -                 Y    1  203 209 206 231   3  22        1
+    2  WD_SPACE           Space             Y  -                 N    0  206 209 215 231   9  22        0
+    3  H_RUN              TextRun           Y  -                 Y    6  215 209 322 231 107  22        6
+    4  H_RUN              TextRun           Y  -                 Y    5  330 209 417 231  87  22        5
+    5  WD_SPACE           Space             Y  -                 N    0  322 215 330 231   8  16        0
+    6  WD_SPACE           Space             Y  -                 N    0  417 215 427 231  10  16        0
+    7  H_RUN              TextRun           Y  -                 Y    1  427 215 440 231  13  16        1
+    8  H_RUN              TextRun           Y  -                 Y    6  203 279 304 307 101  28        6
+    9  H_RUN              TextRun           Y  -                 Y    1  315 292 323 294   8   2        1
+   10  H_RUN              TextRun           Y  -                 Y    1  333 297 338 305   5   8        1
+   11  WD_SPACE           Space             Y  -                 N    0  226 348 242 370  16  22        0
+   12  H_RUN              TextRun           Y  -                 Y    4  242 348 309 370  67  22        4
+   13  H_RUN              TextRun           Y  -                 Y    1  203 354 226 370  23  16        1
+   14  H_RUN              TextRun           Y  -                 Y    1  230 361 238 363   8   2        1
+   15  H_RUN              TextRun           Y  -                 Y    1  318 361 348 363  30   2        1
+   16  H_RUN              TextRun           Y  -                 Y    1  358 366 363 374   5   8        1
+   17  WD_SPACE           Space             Y  -                 N    0  216 417 232 439  16  22        0
+   18  H_RUN              TextRun           Y  -                 Y    4  232 417 299 439  67  22        4
+   19  WIDE_SPACE         Space             Y  -                 N    0  299 417 339 439  40  22        0
+   20  H_RUN              TextRun           Y  -                 Y    1  203 423 216 439  13  16        1
+   21  H_RUN              TextRun           Y  -                 Y    2  339 423 365 439  26  16        2
+   22  H_RUN              TextRun           Y  -                 Y    1  220 430 228 432   8   2        1
+   23  H_RUN              TextRun           Y  -                 Y    1  308 430 323 432  15   2        1
+   24  WD_SPACE           Space             Y  -                 N    0  395 485 413 509  18  24        0
+   25  H_RUN              TextRun           Y  -                 Y    1  413 485 437 509  24  24        1
+   26  H_RUN              TextRun           Y  -                 Y    4  202 489 290 515  88  26        4
+   27  WD_SPACE           Space             Y  -                 N    0  290 489 299 515   9  26        0
+   28  H_RUN              TextRun           Y  -                 Y    6  299 493 395 515  96  22        6

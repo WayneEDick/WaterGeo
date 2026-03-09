@@ -1,0 +1,24 @@
+
+# Script_CSUN.yaml
+
+steps:
+
+  - name: G5a_classify_tokens
+    fn: g5a_classify_tokens
+    enabled: true
+
+  - name: G5a_write_token_report
+    fn: g5a_write_token_report
+    enabled: true
+
+  - name: G5b_make_streams
+    fn: g5b_make_streams
+    enabled: true
+
+  - name: G5b_dbg_stream_boxes
+    fn: debug_render_g5b_stream_boxes
+    enabled: true
+
+  - name: G5b_write_stream_report
+    fn: g5b_write_stream_report
+    enabled: true
